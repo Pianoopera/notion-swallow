@@ -7,6 +7,7 @@ fn runs() {
 }
 
 #[test]
-fn it_works() {
-    assert_eq!(2 + 2, 4);
+fn runs_output() {
+    let mut cmd = Command::cargo_bin("rf-notion").unwrap();
+    cmd.assert().success().stdout("Hello, world!\n");
 }
