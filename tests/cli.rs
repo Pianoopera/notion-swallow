@@ -33,3 +33,15 @@ fn databases1() -> TestResult {
 fn databases2() -> TestResult {
     runs_output(&["--type", "databases", "--id", "12345678-1234-1234-1234-123456789012"], "tests/expected/databases2.txt")
 }
+
+#[test]
+fn databases_post1() -> TestResult {
+    runs_output(&[
+        "-x",
+        "POST",
+        "--type",
+        "databases",
+        "--file",
+        "tests/fixture/post/request1.json",
+    ], "tests/expected/databases_post1.txt")
+}
