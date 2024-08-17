@@ -15,29 +15,12 @@ fn main() {
     let notion_version = dotenv::var("NOTION_VERSION").unwrap_or("2021-05-13".to_string());
 
     if let Some(matches) = matches.subcommand_matches("databases") {
-        let databases_opt = databases_cmd::DatabasesOpt {
+        let databases_opt = databases_cmd::Databases {
             method: matches.value_of("x").unwrap_or("GET").to_string(),
             id: matches.value_of("id").unwrap_or("").to_string(),
             file_path: matches.value_of("file").unwrap_or("").to_string(),
         };
 
-        if !databases_opt.get_file_path().is_empty() {
-            println!(
-                "curl {} '{}' \\ \n -H 'Authorization: Bearer {}' \\ \n -H 'Notion-Version: {}' \\ \n -H 'Content-Type: application/json' \\ \n -d '{}'",
-                databases_opt.generate_mthod(),
-                databases_opt.generate_url(),
-                notion_api_key,
-                notion_version,
-                databases_opt.get_file()
-            );
-        } else {
-            println!(
-                "curl {} '{}' \\ \n -H 'Authorization: Bearer {}' \\ \n -H 'Notion-Version: {}'",
-                databases_opt.generate_mthod(),
-                databases_opt.generate_url(),
-                notion_api_key,
-                notion_version
-            );
-        }
+        databases_opt.print_curl(notion_api_key, notion_version);
     }
 }
