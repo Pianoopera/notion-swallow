@@ -15,29 +15,26 @@ fn main() {
     let notion_version = dotenv::var("NOTION_VERSION").unwrap_or("2021-05-13".to_string());
 
     if let Some(matches) = matches.subcommand_matches("databases") {
-        let _method = matches.value_of("x").unwrap_or("GET");
-        let _id = matches.value_of("id").unwrap_or("");
-        let _file = matches.value_of("file").unwrap_or("");
+        let databases_opt = databases_cmd::DatabasesOpt {
+            method: matches.value_of("x").unwrap_or("GET").to_string(),
+            id: matches.value_of("id").unwrap_or("").to_string(),
+            file_path: matches.value_of("file").unwrap_or("").to_string(),
+        };
 
-        let method = format!("-L -X {}", _method);
-        let url = format!("https://api.notion.com/v1/databases/{}", _id);
-        let file = _file;
-
-        if !file.is_empty() {
-            let file = std::fs::read_to_string(file).unwrap();
+        if !databases_opt.get_file_path().is_empty() {
             println!(
                 "curl {} '{}' \\ \n -H 'Authorization: Bearer {}' \\ \n -H 'Notion-Version: {}' \\ \n -H 'Content-Type: application/json' \\ \n -d '{}'",
-                method,
-                url,
+                databases_opt.generate_mthod(),
+                databases_opt.generate_url(),
                 notion_api_key,
                 notion_version,
-                file
+                databases_opt.get_file()
             );
         } else {
             println!(
                 "curl {} '{}' \\ \n -H 'Authorization: Bearer {}' \\ \n -H 'Notion-Version: {}'",
-                method,
-                url,
+                databases_opt.generate_mthod(),
+                databases_opt.generate_url(),
                 notion_api_key,
                 notion_version
             );
