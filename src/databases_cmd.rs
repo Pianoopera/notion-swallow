@@ -22,7 +22,7 @@ impl Databases {
     pub fn print_curl(&self, notion_api_key: String, notion_version: String) {
         if !self.get_file_path().is_empty() {
             println!(
-                "curl {} '{}' \\ \n -H 'Authorization: Bearer {}' \\ \n -H 'Notion-Version: {}' \\ \n -H 'Content-Type: application/json' \\ \n -d '{}'",
+                "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_mthod(),
                 &self.generate_url(),
                 notion_api_key,
@@ -31,7 +31,7 @@ impl Databases {
             );
         } else {
             println!(
-                "curl {} '{}' \\ \n -H 'Authorization: Bearer {}' \\ \n -H 'Notion-Version: {}'",
+                "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}'",
                 &self.generate_mthod(),
                 &self.generate_url(),
                 notion_api_key,

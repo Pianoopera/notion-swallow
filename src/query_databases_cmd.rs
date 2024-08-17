@@ -18,7 +18,7 @@ impl QueryDatabases {
     pub fn print_curl(&self, notion_api_key: String, notion_version: String) {
         if !self.get_file_path().is_empty() {
             println!(
-                "curl -X POST '{}' \\ \n -H 'Authorization: Bearer {}' \\ \n -H 'Notion-Version: {}' \\ \n -H 'Content-Type: application/json' \\ \n -d '{}'",
+                "curl -X POST '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_url(),
                 notion_api_key,
                 notion_version,
