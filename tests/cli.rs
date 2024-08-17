@@ -44,3 +44,14 @@ fn databases_post1() -> TestResult {
         "tests/fixture/post/request1.json",
     ], "tests/expected/databases_post1.txt")
 }
+
+#[test]
+fn databases_post2() -> TestResult {
+    runs_output(&[
+        "qdatabases",
+        "--id",
+        "897e5a76ae524b489fdfe71f5945d1af",
+        "--file",
+        "tests/fixture/post/request2.json",
+    ], "tests/expected/query_databases_post2.txt")
+}

@@ -1,13 +1,17 @@
 use clap::App;
 mod databases_cmd;
+mod query_databases_cmd;
 
 fn main() {
     let matches = App::new("rf-notion")
         .version("0.1.0")
         .author("teto <https://github.com/Pianoopera>")
         .about("Output Notion API URLs")
-        .subcommand(
-            databases_cmd::databases_subcommand()
+        .subcommands(
+            vec![
+                databases_cmd::databases_subcommand(),
+                query_databases_cmd::query_databases_cmd()
+            ]
         )
         .get_matches();
 
@@ -22,5 +26,14 @@ fn main() {
         };
 
         databases_opt.print_curl(notion_api_key, notion_version);
+    } else if let Some(matches) = matches.subcommand_matches("qdatabases") {
+        let query_databases_opt = query_databases_cmd::QueryDatabases {
+            id: matches.value_of("id").unwrap_or("").to_string(),
+            file_path: matches.value_of("file").unwrap_or("").to_string(),
+        };
+
+        query_databases_opt.print_curl(notion_api_key, notion_version);
+    } else {
+        println!("Error: subcommand is empty");
     }
 }
