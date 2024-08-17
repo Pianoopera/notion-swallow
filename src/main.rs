@@ -16,5 +16,16 @@ fn main() {
         )
         .get_matches();
 
-    println!("https://api.notion.com/v1/{}", matches.value_of("type").unwrap());
+    let _type = matches.value_of("type").unwrap();
+
+    let url = format!("https://api.notion.com/v1/{}", _type);
+    let notion_api_key = dotenv::var("NOTION_API_KEY").unwrap_or("default".to_string());
+    let notion_version = dotenv::var("NOTION_VERSION").unwrap_or("2021-05-13".to_string());
+
+    println!(
+        "curl '{}' \\ \n-H 'Authorization Bearer {}' \\ \n-H 'Notion-Version: {}'",
+        url,
+        notion_api_key,
+        notion_version
+    );
 }
