@@ -28,3 +28,8 @@ fn runs_output(args: &[&str], expected_file: &str) -> TestResult {
 fn databases1() -> TestResult {
     runs_output(&["--type", "databases"], "tests/expected/databases1.txt")
 }
+
+#[test]
+fn databases2() -> TestResult {
+    runs_output(&["--type", "databases", "--id", "12345678-1234-1234-1234-123456789012"], "tests/expected/databases2.txt")
+}
