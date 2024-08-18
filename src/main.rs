@@ -26,13 +26,7 @@ fn main() {
 
     if let Some(matches) = matches.subcommand_matches("databases") {
         let databases_opt = databases_cmd::Databases {
-            method: match matches.value_of("x").unwrap_or("GET") {
-                "GET" => Method::GET,
-                "POST" => Method::POST,
-                "PATCH" => Method::PATCH,
-                "DELETE" => Method::DELETE,
-                _ => Method::GET,
-            },
+            method: Method::match_method(matches.value_of("x").unwrap_or("GET")),
             id: matches.value_of("id").unwrap_or("").to_string(),
             file_path: matches.value_of("file").unwrap_or("").to_string(),
         };
@@ -47,13 +41,7 @@ fn main() {
         query_databases_opt.print_curl(notion_api_key, notion_version);
     } else if let Some(matches) = matches.subcommand_matches("pages") {
         let pages_opt = pages_cmd::Pages {
-            method: match matches.value_of("x").unwrap_or("GET") {
-                "GET" => Method::GET,
-                "POST" => Method::POST,
-                "PATCH" => Method::PATCH,
-                "DELETE" => Method::DELETE,
-                _ => Method::GET,
-            },
+            method: Method::match_method(matches.value_of("x").unwrap_or("GET")),
             file_path: matches.value_of("file").unwrap_or("").to_string(),
         };
 

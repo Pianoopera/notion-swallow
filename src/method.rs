@@ -15,4 +15,13 @@ impl Method {
             Method::DELETE => "DELETE".to_string(),
         }
     }
+    pub fn match_method(method: &str) -> Method {
+        match method {
+            "GET" => Method::GET,
+            "POST" => Method::POST,
+            "PATCH" => Method::PATCH,
+            "DELETE" => Method::DELETE,
+            _ => Method::GET,
+        }
+    }
 }
