@@ -1,7 +1,27 @@
 use clap::{App, Arg, SubCommand};
 
+#[derive(Debug, PartialEq)]
+pub enum Method {
+    GET,
+    POST,
+    PATCH,
+    DELETE,
+}
+
+// getはGETに変換
+impl Method {
+    pub fn fmt(&self) -> String {
+        match self {
+            Method::GET => "GET".to_string(),
+            Method::POST => "POST".to_string(),
+            Method::PATCH => "PATCH".to_string(),
+            Method::DELETE => "DELETE".to_string(),
+        }
+    }
+}
+
 pub struct Databases {
-    pub method: String,
+    pub method: Method,
     pub id: String,
     pub file_path: String,
 }
@@ -11,16 +31,13 @@ impl Databases {
         format!("https://api.notion.com/v1/databases/{}", &self.id)
     }
     pub fn generate_mthod(&self) -> String {
-        format!("-L -X {}", &self.method)
-    }
-    pub fn get_file_path(&self) -> String {
-        self.file_path.clone()
+        format!("-L -X {}", &self.method.fmt())
     }
     pub fn get_file(&self) -> String {
         std::fs::read_to_string(&self.file_path).unwrap()
     }
     pub fn print_curl(&self, notion_api_key: String, notion_version: String) {
-        if !self.get_file_path().is_empty() {
+        if &self.method == &Method::POST {
             println!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_mthod(),
@@ -29,6 +46,16 @@ impl Databases {
                 notion_version,
                 &self.get_file()
             );
+        // patch判定
+        } else if &self.method == &Method::PATCH {
+            println!(
+                "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
+                &self.generate_mthod(),
+                &self.generate_url(),
+                notion_api_key,
+                notion_version,
+                &self.get_file()
+            )
         } else {
             println!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}'",

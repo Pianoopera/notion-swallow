@@ -1,4 +1,5 @@
 use clap::App;
+use databases_cmd::Method;
 mod databases_cmd;
 mod query_databases_cmd;
 
@@ -20,7 +21,13 @@ fn main() {
 
     if let Some(matches) = matches.subcommand_matches("databases") {
         let databases_opt = databases_cmd::Databases {
-            method: matches.value_of("x").unwrap_or("GET").to_string(),
+            method: match matches.value_of("x").unwrap_or("GET") {
+                "GET" => Method::GET,
+                "POST" => Method::POST,
+                "PATCH" => Method::PATCH,
+                "DELETE" => Method::DELETE,
+                _ => Method::GET,
+            },
             id: matches.value_of("id").unwrap_or("").to_string(),
             file_path: matches.value_of("file").unwrap_or("").to_string(),
         };

@@ -46,7 +46,7 @@ fn databases_post1() -> TestResult {
 }
 
 #[test]
-fn databases_post2() -> TestResult {
+fn qdatabases_post() -> TestResult {
     runs_output(&[
         "qdatabases",
         "--id",
@@ -54,4 +54,17 @@ fn databases_post2() -> TestResult {
         "--file",
         "tests/fixture/post/request2.json",
     ], "tests/expected/query_databases_post2.txt")
+}
+
+#[test]
+fn databases_post3() -> TestResult {
+    runs_output(&[
+        "databases",
+        "-x",
+        "PATCH",
+        "-i",
+        "668d797c-76fa-4934-9b05-ad288df2d136",
+        "-f",
+        "tests/fixture/patch/request1.json",
+    ], "tests/expected/databases_patch1.txt")
 }
