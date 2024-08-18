@@ -1,8 +1,8 @@
 use clap::App;
 
 mod method;
-use method::Method;
 
+mod subcommand;
 mod databases_cmd;
 mod query_databases_cmd;
 mod pages_cmd;
@@ -24,30 +24,16 @@ fn main() {
     let notion_api_key = dotenv::var("NOTION_API_KEY").unwrap_or("default".to_string());
     let notion_version = dotenv::var("NOTION_VERSION").unwrap_or("2021-05-13".to_string());
 
-    if let Some(matches) = matches.subcommand_matches("databases") {
-        let databases_opt = databases_cmd::Databases {
-            method: Method::match_method(matches.value_of("x").unwrap_or("GET")),
-            id: matches.value_of("id").unwrap_or("").to_string(),
-            file_path: matches.value_of("file").unwrap_or("").to_string(),
-        };
-
-        databases_opt.print_curl(notion_api_key, notion_version);
-    } else if let Some(matches) = matches.subcommand_matches("qdatabases") {
-        let query_databases_opt = query_databases_cmd::QueryDatabases {
-            id: matches.value_of("id").unwrap_or("").to_string(),
-            file_path: matches.value_of("file").unwrap_or("").to_string(),
-        };
-
-        query_databases_opt.print_curl(notion_api_key, notion_version);
-    } else if let Some(matches) = matches.subcommand_matches("pages") {
-        let pages_opt = pages_cmd::Pages {
-            method: Method::match_method(matches.value_of("x").unwrap_or("GET")),
-            file_path: matches.value_of("file").unwrap_or("").to_string(),
-        };
-
-        pages_opt.print_curl(notion_api_key, notion_version);
-        
-    } else {
-        println!("Error: subcommand is empty");
+    let subcommand = subcommand::NotionSubCommand::from_args(&matches);
+    match subcommand {
+        subcommand::NotionSubCommand::Databases(databases) => {
+            databases.print_curl(notion_api_key, notion_version);
+        },
+        subcommand::NotionSubCommand::QueryDatabases(query_databases) => {
+            query_databases.print_curl(notion_api_key, notion_version);
+        },
+        subcommand::NotionSubCommand::Pages(pages) => {
+            pages.print_curl(notion_api_key, notion_version);
+        },
     }
 }
