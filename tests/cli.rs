@@ -57,7 +57,7 @@ fn qdatabases_post() -> TestResult {
 }
 
 #[test]
-fn databases_post3() -> TestResult {
+fn databases_patch1() -> TestResult {
     runs_output(&[
         "databases",
         "-x",
@@ -67,4 +67,15 @@ fn databases_post3() -> TestResult {
         "-f",
         "tests/fixture/patch/request1.json",
     ], "tests/expected/databases_patch1.txt")
+}
+
+#[test]
+fn pages_create() -> TestResult {
+    runs_output(&[
+        "pages",
+        "-x",
+        "POST",
+        "-f",
+        "tests/fixture/post/create_request1.json",
+    ], "tests/expected/pages_create1.txt")
 }

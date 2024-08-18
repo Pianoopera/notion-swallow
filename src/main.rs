@@ -1,7 +1,11 @@
 use clap::App;
-use databases_cmd::Method;
+
+mod method;
+use method::Method;
+
 mod databases_cmd;
 mod query_databases_cmd;
+mod pages_cmd;
 
 fn main() {
     let matches = App::new("rf-notion")
@@ -11,7 +15,8 @@ fn main() {
         .subcommands(
             vec![
                 databases_cmd::databases_subcommand(),
-                query_databases_cmd::query_databases_cmd()
+                query_databases_cmd::query_databases_cmd(),
+                pages_cmd::pages_subcommand(),
             ]
         )
         .get_matches();
@@ -40,6 +45,20 @@ fn main() {
         };
 
         query_databases_opt.print_curl(notion_api_key, notion_version);
+    } else if let Some(matches) = matches.subcommand_matches("pages") {
+        let pages_opt = pages_cmd::Pages {
+            method: match matches.value_of("x").unwrap_or("GET") {
+                "GET" => Method::GET,
+                "POST" => Method::POST,
+                "PATCH" => Method::PATCH,
+                "DELETE" => Method::DELETE,
+                _ => Method::GET,
+            },
+            file_path: matches.value_of("file").unwrap_or("").to_string(),
+        };
+
+        pages_opt.print_curl(notion_api_key, notion_version);
+        
     } else {
         println!("Error: subcommand is empty");
     }
