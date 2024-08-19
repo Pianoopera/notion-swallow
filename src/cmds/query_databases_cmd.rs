@@ -1,5 +1,7 @@
 use clap::{App, Arg, SubCommand};
 
+use crate::args::notion_id::NotionIdArg;
+
 pub struct QueryDatabases {
     pub id: String,
     pub file_path: String,
@@ -34,15 +36,7 @@ impl QueryDatabases {
 pub fn query_databases_cmd() -> App<'static, 'static> {
     SubCommand::with_name("qdatabases")
         .about("Output Notion API URLs for query databases")
-        .arg(
-            Arg::with_name("id")
-                .short("i")
-                .long("id")
-                .value_name("ID")
-                .help("Set the ID of Notion API")
-                .takes_value(true)
-                .required(false),
-        )
+        .arg(NotionIdArg::id_option())
         .arg(
             Arg::with_name("file")
                 .short("f")

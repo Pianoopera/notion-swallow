@@ -1,11 +1,14 @@
-use clap::App;
-use cmds::{databases_cmd, pages_cmd};
-
 mod method;
 mod args;
 mod cmds;
 mod subcommand;
-mod query_databases_cmd;
+
+use clap::App;
+use cmds::{
+    databases_cmd,
+    pages_cmd,
+    query_databases_cmd
+};
 
 fn main() {
     let app = App::new("rf-notion")
