@@ -19,7 +19,7 @@ impl Pages {
         format!("-X {}", &self.method.fmt())
     }
     pub fn generate_url_with_id(&self) -> String {
-        format!("https://api.notion.com/v1/pages/{}", &self.notion_id.0.to_string())
+        format!("https://api.notion.com/v1/pages/{}", &self.notion_id.get_id())
     }
     pub fn get_file(&self) -> String {
         std::fs::read_to_string(&self.file_path).unwrap()

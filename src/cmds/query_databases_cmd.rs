@@ -9,7 +9,7 @@ pub struct QueryDatabases {
 
 impl QueryDatabases {
     pub fn generate_url(&self) -> String {
-        format!("https://api.notion.com/v1/databases/{}/query", &self.notion_id.0.to_string())
+        format!("https://api.notion.com/v1/databases/{}/query", &self.notion_id.get_id())
     }
     pub fn get_file_path(&self) -> String {
         self.file_path.clone()

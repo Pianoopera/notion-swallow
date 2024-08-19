@@ -10,7 +10,7 @@ pub struct Databases {
 
 impl Databases {
     pub fn generate_url(&self) -> String {
-        format!("https://api.notion.com/v1/databases/{}", &self.notion_id.0.to_string())
+        format!("https://api.notion.com/v1/databases/{}", &self.notion_id.get_id())
     }
     pub fn generate_mthod(&self) -> String {
         format!("-L -X {}", &self.method.fmt())

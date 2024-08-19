@@ -12,4 +12,7 @@ impl NotionIdArg {
             .takes_value(true)
             .required(false)
     }
+    pub fn get_id(&self) -> String {
+        self.0.to_string()
+    }
 }
