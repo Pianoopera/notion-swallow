@@ -79,3 +79,12 @@ fn pages_create() -> TestResult {
         "tests/fixture/post/create_request1.json",
     ], "tests/expected/pages_create1.txt")
 }
+
+#[test]
+fn pages_retrieve() -> TestResult {
+    runs_output(&[
+        "pages",
+        "-i",
+        "12345678-1234-1234-1234-123456789012",
+    ], "tests/expected/pages_retrieve1.txt")
+}

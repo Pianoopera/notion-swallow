@@ -1,4 +1,5 @@
 use clap::ArgMatches;
+use crate::args::notion_id::NotionIdArg;
 use crate::method::Method;
 use crate::pages_cmd::Pages;
 use crate::databases_cmd::Databases;
@@ -32,6 +33,9 @@ impl NotionSubCommand {
             let pages_opt = Pages {
                 method: Method::match_method(matches.value_of("x").unwrap_or("GET")),
                 file_path: matches.value_of("file").unwrap_or("").to_string(),
+                notion_id: NotionIdArg {
+                    id: matches.value_of("id").unwrap_or("").to_string(),
+                },
             };
 
             NotionSubCommand::Pages(pages_opt)

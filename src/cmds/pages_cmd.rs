@@ -1,10 +1,14 @@
 use clap::{App, Arg, SubCommand};
 
-use crate::method::Method;
+use crate::{
+    args::notion_id::NotionIdArg,
+    method::Method
+};
 
 pub struct Pages {
     pub method: Method,
     pub file_path: String,
+    pub notion_id: NotionIdArg
 }
 
 impl Pages {
@@ -14,18 +18,31 @@ impl Pages {
     pub fn generate_mthod(&self) -> String {
         format!("-X {}", &self.method.fmt())
     }
+    pub fn generate_url_with_id(&self) -> String {
+        format!("https://api.notion.com/v1/pages/{}", &self.notion_id.id)
+    }
     pub fn get_file(&self) -> String {
         std::fs::read_to_string(&self.file_path).unwrap()
     }
     pub fn print_curl(&self, notion_api_key: String, notion_version: String) {
-        println!(
-            "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
-            &self.generate_mthod(),
-            &self.generate_url(),
-            notion_api_key,
-            notion_version,
-            &self.get_file()
-        );
+        if !self.notion_id.id.is_empty() {
+            println!(
+                "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}'",
+                &self.generate_mthod(),
+                &self.generate_url_with_id(),
+                notion_api_key,
+                notion_version
+            );
+        } else {
+            println!(
+                "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
+                &self.generate_mthod(),
+                &self.generate_url(),
+                notion_api_key,
+                notion_version,
+                &self.get_file()
+            );
+        }
     }
 }
 
@@ -41,6 +58,7 @@ pub fn pages_subcommand() -> App<'static, 'static> {
                 .takes_value(true)
                 .required(false),
         )
+        .arg(NotionIdArg::id_option())
         .arg(
             Arg::with_name("file")
                 .short("f")
