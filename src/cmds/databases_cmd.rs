@@ -1,6 +1,6 @@
 use clap::{App, Arg, SubCommand};
 
-use crate::method::Method;
+use crate::{args::notion_id::NotionIdArg, method::Method};
 
 pub struct Databases {
     pub method: Method,
@@ -53,15 +53,7 @@ impl Databases {
 pub fn databases_subcommand() -> App<'static, 'static> {
     SubCommand::with_name("databases")
         .about("Output Notion API URLs for databases")
-        .arg(
-            Arg::with_name("id")
-                .short("i")
-                .long("id")
-                .value_name("ID")
-                .help("Set the ID of Notion API")
-                .takes_value(true)
-                .required(false),
-        )
+        .arg(NotionIdArg::id_option())
         .arg(
             Arg::with_name("x")
                 .short("x")

@@ -1,11 +1,10 @@
 use clap::App;
-use cmds::pages_cmd;
+use cmds::{databases_cmd, pages_cmd};
 
 mod method;
 mod args;
 mod cmds;
 mod subcommand;
-mod databases_cmd;
 mod query_databases_cmd;
 
 fn main() {
