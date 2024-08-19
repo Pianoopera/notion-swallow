@@ -3,13 +3,13 @@ use clap::{App, Arg, SubCommand};
 use crate::args::notion_id::NotionIdArg;
 
 pub struct QueryDatabases {
-    pub id: String,
+    pub notion_id: NotionIdArg,
     pub file_path: String,
 }
 
 impl QueryDatabases {
     pub fn generate_url(&self) -> String {
-        format!("https://api.notion.com/v1/databases/{}/query", &self.id)
+        format!("https://api.notion.com/v1/databases/{}/query", &self.notion_id.0.to_string())
     }
     pub fn get_file_path(&self) -> String {
         self.file_path.clone()

@@ -19,13 +19,13 @@ impl Pages {
         format!("-X {}", &self.method.fmt())
     }
     pub fn generate_url_with_id(&self) -> String {
-        format!("https://api.notion.com/v1/pages/{}", &self.notion_id.id)
+        format!("https://api.notion.com/v1/pages/{}", &self.notion_id.0.to_string())
     }
     pub fn get_file(&self) -> String {
         std::fs::read_to_string(&self.file_path).unwrap()
     }
     pub fn print_curl(&self, notion_api_key: String, notion_version: String) {
-        if !self.notion_id.id.is_empty() {
+        if !self.notion_id.0.is_empty() {
             println!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}'",
                 &self.generate_mthod(),

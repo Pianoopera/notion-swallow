@@ -17,14 +17,14 @@ impl NotionSubCommand {
         if let Some(matches) = matches.subcommand_matches("databases") {
             let databases_opt = Databases {
                 method: Method::match_method(matches.value_of("x").unwrap_or("GET")),
-                id: matches.value_of("id").unwrap_or("").to_string(),
+                notion_id: NotionIdArg(matches.value_of("id").unwrap_or("").to_string()),
                 file_path: matches.value_of("file").unwrap_or("").to_string(),
             };
 
             NotionSubCommand::Databases(databases_opt)
         } else if let Some(matches) = matches.subcommand_matches("qdatabases") {
             let query_databases_opt = QueryDatabases {
-                id: matches.value_of("id").unwrap_or("").to_string(),
+                notion_id: NotionIdArg(matches.value_of("id").unwrap_or("").to_string()),
                 file_path: matches.value_of("file").unwrap_or("").to_string(),
             };
     
@@ -33,9 +33,7 @@ impl NotionSubCommand {
             let pages_opt = Pages {
                 method: Method::match_method(matches.value_of("x").unwrap_or("GET")),
                 file_path: matches.value_of("file").unwrap_or("").to_string(),
-                notion_id: NotionIdArg {
-                    id: matches.value_of("id").unwrap_or("").to_string(),
-                },
+                notion_id: NotionIdArg(matches.value_of("id").unwrap_or("").to_string()),
             };
 
             NotionSubCommand::Pages(pages_opt)

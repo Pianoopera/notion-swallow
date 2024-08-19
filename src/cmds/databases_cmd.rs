@@ -4,13 +4,13 @@ use crate::{args::notion_id::NotionIdArg, method::Method};
 
 pub struct Databases {
     pub method: Method,
-    pub id: String,
+    pub notion_id: NotionIdArg,
     pub file_path: String,
 }
 
 impl Databases {
     pub fn generate_url(&self) -> String {
-        format!("https://api.notion.com/v1/databases/{}", &self.id)
+        format!("https://api.notion.com/v1/databases/{}", &self.notion_id.0.to_string())
     }
     pub fn generate_mthod(&self) -> String {
         format!("-L -X {}", &self.method.fmt())

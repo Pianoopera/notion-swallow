@@ -1,8 +1,6 @@
 use clap::Arg;
 
-pub struct NotionIdArg {
-    pub id: String,
-}
+pub struct NotionIdArg(pub String);
 
 impl NotionIdArg {
     pub fn id_option() -> Arg<'static, 'static> {
