@@ -1,5 +1,7 @@
 use clap::ArgMatches;
 use crate::args::notion_id::NotionIdArg;
+use crate::args::property_id::PropertyIdArg;
+use crate::cmds::property_pages_cmd::PropertyPages;
 use crate::method::Method;
 use crate::pages_cmd::Pages;
 use crate::databases_cmd::Databases;
@@ -9,6 +11,7 @@ pub enum NotionSubCommand {
     Pages(Pages),
     Databases(Databases),
     QueryDatabases(QueryDatabases),
+    PropertyPages(PropertyPages),
 }
 
 // pagesもしくはdatabasesを受け取り、それぞれの構造体を返す
@@ -37,6 +40,14 @@ impl NotionSubCommand {
             };
 
             NotionSubCommand::Pages(pages_opt)
+        } else if let Some(matches) = matches.subcommand_matches("property_pages") {
+            let property_pages_opt = PropertyPages {
+                method: Method::match_method(matches.value_of("x").unwrap_or("GET")),
+                notion_id: NotionIdArg(matches.value_of("id").unwrap_or("").to_string()),
+                property_id: PropertyIdArg(matches.value_of("property_id").unwrap_or("").to_string()),
+            };
+
+            NotionSubCommand::PropertyPages(property_pages_opt)
         } else {
             panic!("Error: subcommand is empty");
         }

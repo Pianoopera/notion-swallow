@@ -88,3 +88,14 @@ fn pages_retrieve() -> TestResult {
         "12345678-1234-1234-1234-123456789012",
     ], "tests/expected/pages_retrieve1.txt")
 }
+
+#[test]
+fn pages_property_item() -> TestResult {
+    runs_output(&[
+        "property_pages",
+        "-i",
+        "12345678-1234-1234-1234-123456789012",
+        "-p",
+        "aBcd123",
+    ], "tests/expected/property_pages_retrieve1.txt")
+}

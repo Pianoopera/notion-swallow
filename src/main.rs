@@ -7,7 +7,8 @@ use clap::App;
 use cmds::{
     databases_cmd,
     pages_cmd,
-    query_databases_cmd
+    query_databases_cmd,
+    property_pages_cmd,
 };
 
 fn main() {
@@ -20,6 +21,7 @@ fn main() {
                 databases_cmd::databases_subcommand(),
                 query_databases_cmd::query_databases_cmd(),
                 pages_cmd::pages_subcommand(),
+                property_pages_cmd::property_pages_subcommand(),
             ]
         );
     let arg_matches = app.get_matches();
@@ -37,6 +39,9 @@ fn main() {
         },
         subcommand::NotionSubCommand::Pages(pages) => {
             pages.print_curl(notion_api_key, notion_version);
+        },
+        subcommand::NotionSubCommand::PropertyPages(property_pages) => {
+            property_pages.print_curl(notion_api_key, notion_version);
         },
     }
 }
