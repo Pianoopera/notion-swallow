@@ -25,7 +25,16 @@ impl Pages {
         std::fs::read_to_string(&self.file_path).unwrap()
     }
     pub fn print_curl(&self, notion_api_key: String, notion_version: String) {
-        if !self.notion_id.0.is_empty() {
+        if &self.method == &Method::PATCH {
+            println!(
+                "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
+                &self.generate_mthod(),
+                &self.generate_url_with_id(),
+                notion_api_key,
+                notion_version,
+                &self.get_file()
+            );
+        } else if &self.method == &Method::GET {
             println!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}'",
                 &self.generate_mthod(),
@@ -33,7 +42,7 @@ impl Pages {
                 notion_api_key,
                 notion_version
             );
-        } else {
+        } else if &self.method == &Method::POST {
             println!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_mthod(),
@@ -42,6 +51,9 @@ impl Pages {
                 notion_version,
                 &self.get_file()
             );
+        } else {
+            // throw error
+            println!("Not supported method");
         }
     }
 }

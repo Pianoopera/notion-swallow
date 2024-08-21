@@ -110,5 +110,5 @@ fn pages_updated() -> TestResult {
         "12345678-1234-1234-1234-123456789012",
         "-f",
         "tests/fixture/patch/pages_patch_request1.json",
-    ], "tests/expected/pages_updated1.txt")
+    ], "tests/expected/pages_patch1.txt")
 }
