@@ -11,3 +11,4 @@ OUTDIR="tests/expected"
 # cargo run -- pages -x POST -f tests/fixture/post/create_request1.json > $OUTDIR/pages_create1.txt
 # cargo run -- pages -i 12345678-1234-1234-1234-123456789012  > $OUTDIR/pages_retrieve1.txt
 # cargo run -- property_pages -i 12345678-1234-1234-1234-123456789012 -p aBcd123  > $OUTDIR/property_pages_retrieve1.txt
+cargo run -- pages -x PATCH -i 12345678-1234-1234-1234-123456789012 -f tests/fixture/patch/pages_patch_request1.json > $OUTDIR/pages_patch1.txt

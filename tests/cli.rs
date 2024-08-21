@@ -99,3 +99,16 @@ fn pages_property_item() -> TestResult {
         "aBcd123",
     ], "tests/expected/property_pages_retrieve1.txt")
 }
+
+#[test]
+fn pages_updated() -> TestResult {
+    runs_output(&[
+        "pages",
+        "-x",
+        "PATCH",
+        "-i",
+        "12345678-1234-1234-1234-123456789012",
+        "-f",
+        "tests/fixture/patch/pages_patch_request1.json",
+    ], "tests/expected/pages_updated1.txt")
+}
