@@ -112,3 +112,16 @@ fn pages_updated() -> TestResult {
         "tests/fixture/patch/pages_patch_request1.json",
     ], "tests/expected/pages_patch1.txt")
 }
+
+#[test]
+fn blocks_append() -> TestResult {
+    runs_output(&[
+        "blocks",
+        "-x",
+        "PATCH",
+        "-i",
+        "12345678-1234-1234-1234-123456789012",
+        "-f",
+        "tests/fixture/patch/blocks_append_request1.json",
+    ], "tests/expected/blocks_append1.txt")
+}

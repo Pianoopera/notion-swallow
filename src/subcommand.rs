@@ -1,6 +1,8 @@
 use clap::ArgMatches;
+use crate::args::block_id::BlockIdArg;
 use crate::args::notion_id::NotionIdArg;
 use crate::args::property_id::PropertyIdArg;
+use crate::cmds::blocks_cmd::Blocks;
 use crate::cmds::property_pages_cmd::PropertyPages;
 use crate::method::Method;
 use crate::pages_cmd::Pages;
@@ -12,6 +14,7 @@ pub enum NotionSubCommand {
     Databases(Databases),
     QueryDatabases(QueryDatabases),
     PropertyPages(PropertyPages),
+    Blocks(Blocks)
 }
 
 // pagesもしくはdatabasesを受け取り、それぞれの構造体を返す
@@ -48,6 +51,14 @@ impl NotionSubCommand {
             };
 
             NotionSubCommand::PropertyPages(property_pages_opt)
+        } else if let Some(matches) = matches.subcommand_matches("blocks") {
+            let blocks_opt = Blocks {
+                method: Method::match_method(matches.value_of("x").unwrap_or("GET")),
+                block_id: BlockIdArg(matches.value_of("id").unwrap_or("").to_string()),
+                file_path: matches.value_of("file").unwrap_or("").to_string(),
+            };
+            
+            NotionSubCommand::Blocks(blocks_opt)
         } else {
             panic!("Error: subcommand is empty");
         }
