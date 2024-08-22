@@ -1,7 +1,7 @@
-use clap::{App, Arg, SubCommand};
+use clap::{App, SubCommand};
 
 use crate::{
-    args::notion_id::NotionIdArg,
+    args::{file::File, notion_id::NotionIdArg, x::X},
     method::Method,
     // cmds::execute::handler
 };
@@ -68,23 +68,7 @@ impl Pages {
 pub fn pages_subcommand() -> App<'static, 'static> {
     SubCommand::with_name("pages")
         .about("Output Notion API URLs for pages")
-        .arg(
-            Arg::with_name("x")
-                .short("x")
-                .long("x")
-                .value_name("METHOD")
-                .help("Set the method of Notion API")
-                .takes_value(true)
-                .required(false),
-        )
+        .arg(X::x_option())
         .arg(NotionIdArg::id_option())
-        .arg(
-            Arg::with_name("file")
-                .short("f")
-                .long("file")
-                .value_name("FILE")
-                .help("Set the file of Notion API")
-                .takes_value(true)
-                .required(false),
-        )
+        .arg(File::file_option())
 }

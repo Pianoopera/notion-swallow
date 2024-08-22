@@ -1,9 +1,6 @@
-use clap::{App, Arg, SubCommand};
+use clap::{App, SubCommand};
 
-use crate::{
-    args::notion_id::NotionIdArg,
-    // cmds::execute::handler
-};
+use crate::args::{file::File, notion_id::NotionIdArg};
 
 pub struct QueryDatabases {
     pub notion_id: NotionIdArg,
@@ -42,13 +39,5 @@ pub fn query_databases_cmd() -> App<'static, 'static> {
     SubCommand::with_name("qdatabases")
         .about("Output Notion API URLs for query databases")
         .arg(NotionIdArg::id_option())
-        .arg(
-            Arg::with_name("file")
-                .short("f")
-                .long("file")
-                .value_name("FILE")
-                .help("Set the file of Notion API")
-                .takes_value(true)
-                .required(false),
-        )
+        .arg(File::file_option())
 }
