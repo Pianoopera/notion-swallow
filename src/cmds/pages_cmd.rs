@@ -2,7 +2,8 @@ use clap::{App, Arg, SubCommand};
 
 use crate::{
     args::notion_id::NotionIdArg,
-    method::Method
+    method::Method,
+    // cmds::execute::handler
 };
 
 pub struct Pages {
@@ -26,7 +27,7 @@ impl Pages {
     }
     pub fn print_curl(&self, notion_api_key: String, notion_version: String) {
         if &self.method == &Method::PATCH {
-            println!(
+            let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_mthod(),
                 &self.generate_url_with_id(),
@@ -34,16 +35,20 @@ impl Pages {
                 notion_version,
                 &self.get_file()
             );
+            println!("{}", curl);
+            // handler(&curl);
         } else if &self.method == &Method::GET {
-            println!(
+            let curl =  format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}'",
                 &self.generate_mthod(),
                 &self.generate_url_with_id(),
                 notion_api_key,
                 notion_version
             );
+            println!("{}", curl);
+            // handler(&curl);
         } else if &self.method == &Method::POST {
-            println!(
+            let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_mthod(),
                 &self.generate_url(),
@@ -51,6 +56,8 @@ impl Pages {
                 notion_version,
                 &self.get_file()
             );
+            println!("{}", curl);
+            // handler(&curl);
         } else {
             // throw error
             println!("Not supported method");

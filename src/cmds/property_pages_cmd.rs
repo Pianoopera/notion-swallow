@@ -1,6 +1,10 @@
 use clap::App;
 
-use crate::{args::{notion_id::NotionIdArg, property_id::PropertyIdArg}, method::Method};
+use crate::{
+    args::{notion_id::NotionIdArg, property_id::PropertyIdArg},
+    // cmds::execute::handler,
+    method::Method
+};
 
 
 pub struct PropertyPages {
@@ -16,13 +20,15 @@ impl PropertyPages {
         format!("https://api.notion.com/v1/pages/{}/properties/{}", &self.notion_id.get_id(), &self.property_id.get_id())
     }
     pub fn print_curl(&self, notion_api_key: String, notion_version: String) {
-        println!(
+        let curl = format!(
             "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}'",
             &self.generate_mthod(),
             &self.generate_url(),
             notion_api_key,
             notion_version
         );
+        println!("{}", curl);
+        // handler(&curl);
     }
 }
 

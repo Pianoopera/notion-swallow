@@ -1,6 +1,10 @@
 use clap::{App, Arg, SubCommand};
 
-use crate::{args::notion_id::NotionIdArg, method::Method};
+use crate::{
+    args::notion_id::NotionIdArg,
+    method::Method,
+    // cmds::execute::handler
+};
 
 pub struct Databases {
     pub method: Method,
@@ -20,7 +24,7 @@ impl Databases {
     }
     pub fn print_curl(&self, notion_api_key: String, notion_version: String) {
         if &self.method == &Method::POST {
-            println!(
+            let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_mthod(),
                 &self.generate_url(),
@@ -28,24 +32,30 @@ impl Databases {
                 notion_version,
                 &self.get_file()
             );
+            println!("{}", curl);
+            // handler(&curl);
         // patch判定
         } else if &self.method == &Method::PATCH {
-            println!(
+            let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_mthod(),
                 &self.generate_url(),
                 notion_api_key,
                 notion_version,
                 &self.get_file()
-            )
+            );
+            println!("{}", curl);
+            // handler(&curl);
         } else {
-            println!(
+            let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}'",
                 &self.generate_mthod(),
                 &self.generate_url(),
                 notion_api_key,
                 notion_version
             );
+            println!("{}", curl);
+            // handler(&curl);
         }
     }
 }

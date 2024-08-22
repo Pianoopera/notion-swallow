@@ -1,6 +1,9 @@
 use clap::{App, Arg, SubCommand};
 
-use crate::args::notion_id::NotionIdArg;
+use crate::{
+    args::notion_id::NotionIdArg,
+    // cmds::execute::handler
+};
 
 pub struct QueryDatabases {
     pub notion_id: NotionIdArg,
@@ -19,13 +22,15 @@ impl QueryDatabases {
     }
     pub fn print_curl(&self, notion_api_key: String, notion_version: String) {
         if !self.get_file_path().is_empty() {
-            println!(
+            let curl = format!(
                 "curl -X POST '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_url(),
                 notion_api_key,
                 notion_version,
                 &self.get_file()
             );
+            println!("{}", curl);
+            // handler(&curl);
         } else {
             // error pattern
             println!("Error: file path is empty");
