@@ -2,13 +2,13 @@ use super::i_cmd::ICommand;
 
 use crate::{args::{block_id::BlockIdArg, file::File, x::X}, method::Method};
 
-pub struct Blocks {
+pub struct BlocksAppend {
     pub method: Method,
     pub block_id: BlockIdArg,
     pub file_path: String,
 }
 
-impl ICommand for Blocks {
+impl ICommand for BlocksAppend {
     fn generate_url(&self) -> String {
         format!("https://api.notion.com/v1/blocks/{}/children", &self.block_id.get_id())
     }
@@ -44,8 +44,8 @@ impl ICommand for Blocks {
     }
 }
 
-pub fn blocks_subcommand() -> clap::App<'static, 'static> {
-    clap::SubCommand::with_name("blocks")
+pub fn blocks_append_subcommand() -> clap::App<'static, 'static> {
+    clap::SubCommand::with_name("blocks_append")
         .about("Output Notion API URLs for blocks")
         .arg(X::x_option())
         .arg(BlockIdArg::id_option())
