@@ -6,23 +6,25 @@ use crate::{
     // cmds::execute::handler
 };
 
+use super::i_cmd::ICommand;
+
 pub struct Databases {
     pub method: Method,
     pub notion_id: NotionIdArg,
     pub file_path: String,
 }
 
-impl Databases {
-    pub fn generate_url(&self) -> String {
+impl ICommand for Databases {
+    fn generate_url(&self) -> String {
         format!("https://api.notion.com/v1/databases/{}", &self.notion_id.get_id())
     }
-    pub fn generate_mthod(&self) -> String {
+    fn generate_mthod(&self) -> String {
         format!("-L -X {}", &self.method.fmt())
     }
-    pub fn get_file(&self) -> String {
+    fn get_file(&self) -> String {
         std::fs::read_to_string(&self.file_path).unwrap()
     }
-    pub fn print_curl(&self, notion_api_key: String, notion_version: String) {
+    fn print_curl(&self, notion_api_key: String, notion_version: String) {
         if &self.method == &Method::POST {
             let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",

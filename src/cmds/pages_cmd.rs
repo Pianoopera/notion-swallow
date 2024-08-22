@@ -6,26 +6,25 @@ use crate::{
     // cmds::execute::handler
 };
 
+use super::i_cmd::ICommand;
+
 pub struct Pages {
     pub method: Method,
     pub file_path: String,
     pub notion_id: NotionIdArg
 }
 
-impl Pages {
-    pub fn generate_url(&self) -> String {
+impl ICommand for Pages {
+    fn generate_url(&self) -> String {
         "https://api.notion.com/v1/pages".to_string()
     }
-    pub fn generate_mthod(&self) -> String {
+    fn generate_mthod(&self) -> String {
         format!("-X {}", &self.method.fmt())
     }
-    pub fn generate_url_with_id(&self) -> String {
-        format!("https://api.notion.com/v1/pages/{}", &self.notion_id.get_id())
-    }
-    pub fn get_file(&self) -> String {
+    fn get_file(&self) -> String {
         std::fs::read_to_string(&self.file_path).unwrap()
     }
-    pub fn print_curl(&self, notion_api_key: String, notion_version: String) {
+    fn print_curl(&self, notion_api_key: String, notion_version: String) {
         if &self.method == &Method::PATCH {
             let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
@@ -62,6 +61,12 @@ impl Pages {
             // throw error
             println!("Not supported method");
         }
+    }
+}
+
+impl Pages {
+    pub fn generate_url_with_id(&self) -> String {
+        format!("https://api.notion.com/v1/pages/{}", &self.notion_id.get_id())
     }
 }
 
