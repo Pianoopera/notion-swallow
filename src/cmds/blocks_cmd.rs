@@ -19,7 +19,7 @@ impl ICommand for Blocks {
         std::fs::read_to_string(&self.file_path).unwrap()
     }
     fn print_curl(&self, notion_api_key: String, notion_version: String) {
-        if &self.method == &Method::POST {
+        if &self.method == &Method::PATCH {
             let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_mthod(),
@@ -31,14 +31,14 @@ impl ICommand for Blocks {
             println!("{}", curl);
             // handler(&curl);
         } else {
-            let curl = format!(
-                "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}'",
-                &self.generate_mthod(),
-                &self.generate_url(),
-                notion_api_key,
-                notion_version
-            );
-            println!("{}", curl);
+            // let curl = format!(
+            //     "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}'",
+            //     &self.generate_mthod(),
+            //     &self.generate_url(),
+            //     notion_api_key,
+            //     notion_version
+            // );
+            // println!("{}", curl);
             // handler(&curl);
         }
     }
