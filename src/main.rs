@@ -5,7 +5,7 @@ mod subcommand;
 
 use clap::App;
 use cmds::{
-    blocks_append_cmd, databases_cmd, i_cmd::ICommand, pages_cmd, property_pages_cmd, query_databases_cmd
+    append_blocks_cmd, blocks_cmd, databases_cmd, i_cmd::ICommand, pages_cmd, property_pages_cmd, query_databases_cmd
 };
 
 fn main() {
@@ -19,7 +19,8 @@ fn main() {
                 query_databases_cmd::query_databases_cmd(),
                 pages_cmd::pages_subcommand(),
                 property_pages_cmd::property_pages_subcommand(),
-                blocks_append_cmd::blocks_append_subcommand(),
+                append_blocks_cmd::append_blocks_subcommand(),
+                blocks_cmd::blocks_subcommand(),
             ]
         );
     let arg_matches = app.get_matches();
@@ -41,8 +42,11 @@ fn main() {
         subcommand::NotionSubCommand::PropertyPages(property_pages) => {
             property_pages.print_curl(notion_api_key, notion_version);
         },
-        subcommand::NotionSubCommand::BlocksAppend(blocks_append) => {
-            blocks_append.print_curl(notion_api_key, notion_version);
-        }
+        subcommand::NotionSubCommand::BlocksAppend(append_blocks) => {
+            append_blocks.print_curl(notion_api_key, notion_version);
+        },
+        subcommand::NotionSubCommand::Blocks(blocks) => {
+            blocks.print_curl(notion_api_key, notion_version);
+        },
     }
 }

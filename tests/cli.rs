@@ -114,27 +114,27 @@ fn pages_updated() -> TestResult {
 }
 
 #[test]
-fn blocks_append() -> TestResult {
+fn append_blocks() -> TestResult {
     runs_output(&[
-        "blocks_append",
+        "append_blocks",
         "-x",
         "PATCH",
         "-i",
         "12345678-1234-1234-1234-123456789012",
         "-f",
-        "tests/fixture/patch/blocks_append_request1.json",
-    ], "tests/expected/blocks_append1.txt")
+        "tests/fixture/patch/append_blocks_request1.json",
+    ], "tests/expected/append_blocks1.txt")
 }
 
-// #[test]
-// fn update_block() -> TestResult {
-//     runs_output(&[
-//         "blocks",
-//         "-x",
-//         "PATCH",
-//         "-i",
-//         "12345678-1234-1234-1234-123456789012",
-//         "-f",
-//         "tests/fixture/patch/blocks_update_request1.json",
-//     ], "tests/expected/blocks_update1.txt")
-// }
+#[test]
+fn update_block() -> TestResult {
+    runs_output(&[
+        "blocks",
+        "-x",
+        "PATCH",
+        "-i",
+        "12345678-1234-1234-1234-123456789012",
+        "-f",
+        "tests/fixture/patch/blocks_update_request1.json",
+    ], "tests/expected/blocks_update1.txt")
+}

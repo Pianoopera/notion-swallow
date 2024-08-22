@@ -1,16 +1,16 @@
-use super::i_cmd::ICommand;
-
 use crate::{args::{block_id::BlockIdArg, file::File, x::X}, method::Method};
 
-pub struct BlocksAppend {
+use super::i_cmd::ICommand;
+
+pub struct Blocks {
     pub method: Method,
     pub block_id: BlockIdArg,
     pub file_path: String,
 }
 
-impl ICommand for BlocksAppend {
+impl ICommand for Blocks {
     fn generate_url(&self) -> String {
-        format!("https://api.notion.com/v1/blocks/{}/children", &self.block_id.get_id())
+        format!("https://api.notion.com/v1/blocks/{}", &self.block_id.get_id())
     }
     fn generate_mthod(&self) -> String {
         format!("-X {}", &self.method.fmt())
@@ -31,21 +31,14 @@ impl ICommand for BlocksAppend {
             println!("{}", curl);
             // handler(&curl);
         } else {
-            // let curl = format!(
-            //     "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}'",
-            //     &self.generate_mthod(),
-            //     &self.generate_url(),
-            //     notion_api_key,
-            //     notion_version
-            // );
-            // println!("{}", curl);
-            // handler(&curl);
+            // error
+            println!("Error: Invalid method");
         }
     }
 }
 
-pub fn blocks_append_subcommand() -> clap::App<'static, 'static> {
-    clap::SubCommand::with_name("blocks_append")
+pub fn blocks_subcommand() -> clap::App<'static, 'static> {
+    clap::SubCommand::with_name("blocks")
         .about("Output Notion API URLs for blocks")
         .arg(X::x_option())
         .arg(BlockIdArg::id_option())
