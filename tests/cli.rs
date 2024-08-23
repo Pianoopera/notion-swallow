@@ -162,7 +162,7 @@ fn ret_blocks() -> TestResult {
 // #[test]
 // fn block_children() -> TestResult {
 //     runs_output(&[
-//         "child_blocks",
+//         "children_blocks",
 //         "-i",
 //         "12345678-1234-1234-1234-123456789012"
 //     ], "tests/expected/blocks_child1.txt")

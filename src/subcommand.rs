@@ -4,6 +4,7 @@ use crate::args::notion_id::NotionIdArg;
 use crate::args::property_id::PropertyIdArg;
 use crate::cmds::append_blocks_cmd::BlocksAppend;
 use crate::cmds::blocks_cmd::Blocks;
+use crate::cmds::children_blocks_cmd::ChildrenBlocks;
 use crate::cmds::property_pages_cmd::PropertyPages;
 use crate::method::Method;
 use crate::pages_cmd::Pages;
@@ -17,6 +18,7 @@ pub enum NotionSubCommand {
     PropertyPages(PropertyPages),
     BlocksAppend(BlocksAppend),
     Blocks(Blocks),
+    ChildrenBlocks(ChildrenBlocks)
 }
 
 // pagesもしくはdatabasesを受け取り、それぞれの構造体を返す
@@ -69,6 +71,8 @@ impl NotionSubCommand {
             };
             
             NotionSubCommand::BlocksAppend(append_blocks_opt)
+        } else if let Some(matches) = matches.subcommand_matches("children_blocks") {
+            todo!()
         } else {
             panic!("Error: subcommand is empty");
         }
