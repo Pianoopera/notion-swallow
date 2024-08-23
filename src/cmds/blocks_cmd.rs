@@ -30,6 +30,15 @@ impl ICommand for Blocks {
             );
             println!("{}", curl);
             // handler(&curl);
+        } else if &self.method == &Method::DELETE {
+            let curl = format!(
+                "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json'",
+                &self.generate_mthod(),
+                &self.generate_url(),
+                notion_api_key,
+                notion_version,
+            );
+            println!("{}", curl);
         } else {
             // error
             println!("Error: Invalid method");

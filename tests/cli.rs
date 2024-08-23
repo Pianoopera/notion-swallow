@@ -142,7 +142,7 @@ fn update_block() -> TestResult {
 #[test]
 fn delete_block() -> TestResult {
     runs_output(&[
-        "bloks",
+        "blocks",
         "-x",
         "DELETE",
         "-i",
