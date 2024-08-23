@@ -14,3 +14,4 @@ OUTDIR="tests/expected"
 # cargo run -- pages -x PATCH -i 12345678-1234-1234-1234-123456789012 -f tests/fixture/patch/pages_patch_request1.json > $OUTDIR/pages_patch1.txt
 # cargo run -- append_blocks -x PATCH -i 12345678-1234-1234-1234-123456789012 -f tests/fixture/patch/append_blocks_request1.json > $OUTDIR/append_blocks1.txt
 # cargo run -- blocks -x PATCH -i 12345678-1234-1234-1234-123456789012 -f tests/fixture/patch/blocks_update_request1.json > $OUTDIR/blocks_update1.txt
+cargo run -- blocks -x DELETE -i 12345678-1234-1234-1234-123456789012 > $OUTDIR/bloks_delete1.txt

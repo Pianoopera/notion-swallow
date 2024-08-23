@@ -138,3 +138,14 @@ fn update_block() -> TestResult {
         "tests/fixture/patch/blocks_update_request1.json",
     ], "tests/expected/blocks_update1.txt")
 }
+
+#[test]
+fn delete_block() -> TestResult {
+    runs_output(&[
+        "bloks",
+        "-x",
+        "DELETE",
+        "-i",
+        "12345678-1234-1234-1234-123456789012",
+    ], "tests/expected/bloks_delete1.txt")
+}
