@@ -149,3 +149,12 @@ fn delete_block() -> TestResult {
         "12345678-1234-1234-1234-123456789012",
     ], "tests/expected/bloks_delete1.txt")
 }
+
+#[test]
+fn ret_blocks() -> TestResult {
+    runs_output(&[
+        "blocks",
+        "-i",
+        "12345678-1234-1234-1234-123456789012"
+    ], "tests/expected/blocks_ret1.txt")
+}
