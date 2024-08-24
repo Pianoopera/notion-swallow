@@ -167,3 +167,12 @@ fn block_children() -> TestResult {
         "12345678-1234-1234-1234-123456789012"
     ], "tests/expected/child_blocks.txt")
 }
+
+#[test]
+fn search_by_title() -> TestResult {
+    runs_output(&[
+        "search",
+        "-f",
+        "tests/fixture/post/search_by_title_request1.json",
+    ], "tests/expected/search_by_title.txt")
+}

@@ -16,4 +16,5 @@ OUTDIR="tests/expected"
 # cargo run -- blocks -x PATCH -i 12345678-1234-1234-1234-123456789012 -f tests/fixture/patch/blocks_update_request1.json > $OUTDIR/blocks_update1.txt
 # cargo run -- blocks -x DELETE -i 12345678-1234-1234-1234-123456789012 > $OUTDIR/bloks_delete1.txt
 # cargo run -- blocks -i 12345678-1234-1234-1234-123456789012 > $OUTDIR/blocks_ret1.txt
-cargo run -- children_blocks -i 12345678-1234-1234-1234-123456789012 > $OUTDIR/child_blocks.txt
+# cargo run -- children_blocks -i 12345678-1234-1234-1234-123456789012 > $OUTDIR/child_blocks.txt
+cargo run -- search -f tests/fixture/post/search_by_title_request1.json > $OUTDIR/search_by_title.txt
