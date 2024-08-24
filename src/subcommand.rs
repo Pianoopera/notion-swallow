@@ -72,7 +72,12 @@ impl NotionSubCommand {
             
             NotionSubCommand::BlocksAppend(append_blocks_opt)
         } else if let Some(matches) = matches.subcommand_matches("children_blocks") {
-            todo!()
+            let children_blocks_opt = ChildrenBlocks {
+                method: Method::match_method(matches.value_of("x").unwrap_or("GET")),
+                block_id: BlockIdArg(matches.value_of("id").unwrap_or("").to_string()),
+            };
+            
+            NotionSubCommand::ChildrenBlocks(children_blocks_opt)
         } else {
             panic!("Error: subcommand is empty");
         }
