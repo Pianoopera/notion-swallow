@@ -36,7 +36,7 @@ impl QueryDatabases {
 }
 
 pub fn query_databases_cmd() -> App<'static, 'static> {
-    SubCommand::with_name("qdatabases")
+    SubCommand::with_name("query_databases")
         .about("Output Notion API URLs for query databases")
         .arg(NotionIdArg::id_option())
         .arg(File::file_option())

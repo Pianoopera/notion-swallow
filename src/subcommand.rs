@@ -33,7 +33,7 @@ impl NotionSubCommand {
             };
 
             NotionSubCommand::Databases(databases_opt)
-        } else if let Some(matches) = matches.subcommand_matches("qdatabases") {
+        } else if let Some(matches) = matches.subcommand_matches("query_databases") {
             let query_databases_opt = QueryDatabases {
                 notion_id: NotionIdArg(matches.value_of("id").unwrap_or("").to_string()),
                 file_path: matches.value_of("file").unwrap_or("").to_string(),

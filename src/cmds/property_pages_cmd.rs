@@ -34,7 +34,7 @@ impl PropertyPages {
 
 pub fn property_pages_subcommand() -> App<'static, 'static> {
     clap::SubCommand::with_name("property_pages")
-        .about("Get the property pages of Notion API")
+        .about("Output Notion API URLs for property pages")
         .arg(NotionIdArg::id_option())
         .arg(PropertyIdArg::id_option())
 }

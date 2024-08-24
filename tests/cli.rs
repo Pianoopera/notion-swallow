@@ -46,9 +46,9 @@ fn databases_post1() -> TestResult {
 }
 
 #[test]
-fn qdatabases_post() -> TestResult {
+fn query_databases_post() -> TestResult {
     runs_output(&[
-        "qdatabases",
+        "query_databases",
         "--id",
         "897e5a76ae524b489fdfe71f5945d1af",
         "--file",
