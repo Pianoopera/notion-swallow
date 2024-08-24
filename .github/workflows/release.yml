@@ -21,11 +21,6 @@ jobs:
         with:
           name: ${{ matrix.os }}-binary
           path: target/release/notion_curl_fmt
-
-  create_release:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - uses: actions/download-artifact@v4
         with:
           name: ${{ matrix.os }}-binary
@@ -39,3 +34,21 @@ jobs:
             notion_curl_fmt
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
+
+  # create_release:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/download-artifact@v4
+  #       with:
+  #         name: ${{ matrix.os }}-binary
+  #     - name: Create Release
+  #       id: create_release
+  #       uses: softprops/action-gh-release@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }}
+  #       with:
+  #         files: |
+  #           notion_curl_fmt
+  #         tag_name: ${{ github.ref }}
+  #         release_name: Release ${{ github.ref }}
