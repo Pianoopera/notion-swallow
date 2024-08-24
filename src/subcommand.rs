@@ -1,6 +1,7 @@
 use clap::ArgMatches;
 use crate::args::block_id::BlockIdArg;
 use crate::args::notion_id::NotionIdArg;
+use crate::args::page_size::PageSizeArg;
 use crate::args::property_id::PropertyIdArg;
 use crate::cmds::append_blocks_cmd::BlocksAppend;
 use crate::cmds::blocks_cmd::Blocks;
@@ -75,6 +76,7 @@ impl NotionSubCommand {
             let children_blocks_opt = ChildrenBlocks {
                 method: Method::match_method(matches.value_of("x").unwrap_or("GET")),
                 block_id: BlockIdArg(matches.value_of("id").unwrap_or("").to_string()),
+                page_size: PageSizeArg(matches.value_of("page_size").unwrap_or("100").to_string()),
             };
             
             NotionSubCommand::ChildrenBlocks(children_blocks_opt)
