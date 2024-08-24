@@ -7,6 +7,7 @@ use crate::cmds::append_blocks_cmd::BlocksAppend;
 use crate::cmds::blocks_cmd::Blocks;
 use crate::cmds::children_blocks_cmd::ChildrenBlocks;
 use crate::cmds::property_pages_cmd::PropertyPages;
+use crate::cmds::search_cmd::Search;
 use crate::method::Method;
 use crate::pages_cmd::Pages;
 use crate::databases_cmd::Databases;
@@ -19,7 +20,8 @@ pub enum NotionSubCommand {
     PropertyPages(PropertyPages),
     BlocksAppend(BlocksAppend),
     Blocks(Blocks),
-    ChildrenBlocks(ChildrenBlocks)
+    ChildrenBlocks(ChildrenBlocks),
+    Search(Search),
 }
 
 // pagesもしくはdatabasesを受け取り、それぞれの構造体を返す
@@ -80,6 +82,12 @@ impl NotionSubCommand {
             };
             
             NotionSubCommand::ChildrenBlocks(children_blocks_opt)
+        } else if let Some(matches) = matches.subcommand_matches("search") {
+            let search_opt = Search {
+                file_path: matches.value_of("file").unwrap_or("").to_string(),
+            };
+            
+            NotionSubCommand::Search(search_opt)
         } else {
             panic!("Error: subcommand is empty");
         }
