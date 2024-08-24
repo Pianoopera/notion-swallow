@@ -1,56 +1,73 @@
-name: Release
+name: Build and Release
 
 on:
   push:
     tags:
-      - "v*"
+      - v*
+env:
+  PROJECT_NAME: rf-notion
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.job.os }}
     strategy:
       matrix:
-        os: [macos-latest]
+        job:
+          - {
+              os: ubuntu-latest,
+              target: x86_64-unknown-linux-gnu,
+              use-cross: false,
+              extension: "",
+            }
+          - {
+              os: ubuntu-latest,
+              target: aarch64-unknown-linux-gnu,
+              use-cross: true,
+              extension: "",
+            }
+          - {
+              os: macos-latest,
+              target: x86_64-apple-darwin,
+              use-cross: false,
+              extension: "",
+            }
+          - {
+              os: macos-latest,
+              target: aarch64-apple-darwin,
+              use-cross: false,
+              extension: "",
+            }
+          - {
+              os: windows-latest,
+              target: x86_64-pc-windows-msvc,
+              use-cross: false,
+              extension: .exe,
+            }
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          target: ${{ matrix.job.target }}
+
       - name: Build
-        run: cargo build --release
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions-rs/cargo@v1
         with:
-          name: ${{ matrix.os }}-binary
-          path: target/release
-      - uses: actions/download-artifact@v4
-        with:
-          name: ${{ matrix.os }}-binary
-      - name: Create Release
-        id: create_release
+          use-cross: ${{ matrix.job.use-cross }}
+          command: build
+          args: --release --target ${{ matrix.job.target }}
+
+      - name: Rename artifacts
+        run: |
+          mv target/${{ matrix.job.target }}/release/${{ env.PROJECT_NAME }}${{ matrix.job.extension }} ${{ env.PROJECT_NAME }}-${{ github.ref_name }}-${{ matrix.job.target }}${{ matrix.job.extension }}
+
+      - name: Release
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }}
         with:
           files: |
-            target/release/*
-          tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
-
-  # create_release:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/download-artifact@v4
-  #       with:
-  #         name: ${{ matrix.os }}-binary
-  #     - name: Create Release
-  #       id: create_release
-  #       uses: softprops/action-gh-release@v1
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }}
-  #       with:
-  #         files: |
-  #           notion_curl_fmt
-  #         tag_name: ${{ github.ref }}
-  #         release_name: Release ${{ github.ref }}
+            ${{ env.PROJECT_NAME }}-${{ github.ref_name }}-${{ matrix.job.target }}${{ matrix.job.extension }}
