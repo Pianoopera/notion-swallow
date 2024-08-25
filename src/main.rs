@@ -10,7 +10,7 @@ use cmds::{
 };
 
 fn main() {
-    let app = App::new("notion-swallow")
+    let mut app = App::new("notion-swallow")
         .version("0.2.3")
         .author("teto <https://github.com/Pianoopera>")
         .about("Output Notion API URLs")
@@ -24,7 +24,13 @@ fn main() {
             children_blocks_cmd::children_blocks_subcommand(),
             search_cmd::search_subcommand(),
         ]);
-    let arg_matches = app.get_matches();
+    let arg_matches = app.clone().get_matches();
+
+    // サブコマンドが指定されていない場合はヘルプを表示
+    if arg_matches.subcommand_name().is_none() {
+        app.print_help().unwrap();
+        return;
+    }
 
     let notion_api_key = dotenv::var("NOTION_API_KEY").unwrap_or("default".to_string());
     let notion_version = dotenv::var("NOTION_VERSION").unwrap_or("2021-05-13".to_string());
