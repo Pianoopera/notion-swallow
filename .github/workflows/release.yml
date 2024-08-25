@@ -5,7 +5,7 @@ on:
     tags:
       - v*
 env:
-  PROJECT_NAME: rf-notion
+  PROJECT_NAME: notion-swallow
 
 jobs:
   build:
