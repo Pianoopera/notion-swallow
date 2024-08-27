@@ -20,8 +20,6 @@ impl Search {
     }
 }
 
-pub fn search_subcommand() -> clap::App<'static, 'static> {
-    clap::SubCommand::with_name("search")
-        .about("Output Notion API URLs for search")
-        .arg(File::file_option())
+pub fn search_subcommand() -> clap::Command<'static, 'static> {
+    clap::Command::new()
 }
