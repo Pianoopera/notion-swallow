@@ -1,4 +1,4 @@
-use clap::{App, SubCommand};
+use clap::Command;
 
 use crate::{
     args::{file::File, notion_id::NotionIdArg, x::X},
@@ -70,8 +70,8 @@ impl Pages {
     }
 }
 
-pub fn pages_subcommand() -> App<'static, 'static> {
-    SubCommand::with_name("pages")
+pub fn pages_subcommand() -> Command {
+    Command::new("pages")
         .about("Output Notion API URLs for pages")
         .arg(X::x_option())
         .arg(NotionIdArg::id_option())

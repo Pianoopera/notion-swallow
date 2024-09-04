@@ -9,11 +9,6 @@ use cmds::{
     property_pages_cmd, query_databases_cmd, search_cmd,
 };
 
-#[derive(Debug, Subcommand)]
-enum Subcommands {
-    GET
-}
-
 fn main() {
     let mut app = Command::new("notion-swallow")
         .version("0.2.3")

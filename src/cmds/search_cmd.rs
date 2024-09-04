@@ -1,4 +1,6 @@
-use crate::args::file::File;
+use clap::Command;
+
+use crate::args::{file::File, notion_id::NotionIdArg};
 
 pub struct Search {
     pub file_path: String,
@@ -20,6 +22,9 @@ impl Search {
     }
 }
 
-pub fn search_subcommand() -> clap::Command<'static, 'static> {
-    clap::Command::new()
+pub fn search_subcommand() -> Command {
+    Command::new("serach")
+        .about("Output Notion API URLs for query databases")
+        .arg(NotionIdArg::id_option())
+        .arg(File::file_option())
 }
