@@ -5,6 +5,7 @@ pub struct BlockIdArg(pub String);
 impl BlockIdArg {
     pub fn id_option() -> Arg {
         Arg::new("id")
+            .short('i')
             .long("id")
             .value_name("ID")
             .help("Set the id of Notion API")
