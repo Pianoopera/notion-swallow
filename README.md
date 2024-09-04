@@ -2,7 +2,7 @@
 cli to have the request converted to a request to NOTION
 
 ```
-notion-swallow 0.2.3
+notion-swallow 0.3.2
 teto <https://github.com/Pianoopera>
 Output Notion API URLs
 
