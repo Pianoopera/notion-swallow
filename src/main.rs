@@ -3,7 +3,7 @@ mod cmds;
 mod method;
 mod subcommand;
 
-use clap::{Command, Subcommand};
+use clap::Command;
 use cmds::{
     append_blocks_cmd, blocks_cmd, children_blocks_cmd, databases_cmd, i_cmd::ICommand, pages_cmd,
     property_pages_cmd, query_databases_cmd, search_cmd,
