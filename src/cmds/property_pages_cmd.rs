@@ -1,7 +1,7 @@
-use clap::App;
+use clap::Command;
 
 use crate::{
-    args::{notion_id::NotionIdArg, property_id::PropertyIdArg},
+    args::{notion_id::NotionIdArg, property_id::PropertyIdArg, x::X},
     // cmds::execute::handler,
     method::Method
 };
@@ -32,9 +32,10 @@ impl PropertyPages {
     }
 }
 
-pub fn property_pages_subcommand() -> App<'static, 'static> {
-    clap::SubCommand::with_name("property_pages")
+pub fn property_pages_subcommand() -> Command {
+    Command::new("property_pages")
         .about("Output Notion API URLs for property pages")
+        .arg(X::x_option())
         .arg(NotionIdArg::id_option())
         .arg(PropertyIdArg::id_option())
 }

@@ -1,4 +1,4 @@
-use clap::{App, SubCommand};
+use clap::Command;
 
 use crate::{
     args::{file::File, notion_id::NotionIdArg, x::X},
@@ -62,8 +62,8 @@ impl ICommand for Databases {
     }
 }
 
-pub fn databases_subcommand() -> App<'static, 'static> {
-    SubCommand::with_name("databases")
+pub fn databases_subcommand() -> Command {
+    Command::new("databases")
         .about("Output Notion API URLs for databases")
         .arg(NotionIdArg::id_option())
         .arg(X::x_option())

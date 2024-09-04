@@ -3,14 +3,14 @@ mod cmds;
 mod method;
 mod subcommand;
 
-use clap::App;
+use clap::Command;
 use cmds::{
     append_blocks_cmd, blocks_cmd, children_blocks_cmd, databases_cmd, i_cmd::ICommand, pages_cmd,
     property_pages_cmd, query_databases_cmd, search_cmd,
 };
 
 fn main() {
-    let mut app = App::new("notion-swallow")
+    let mut app = Command::new("notion-swallow")
         .version("0.2.3")
         .author("teto <https://github.com/Pianoopera>")
         .about("Output Notion API URLs")

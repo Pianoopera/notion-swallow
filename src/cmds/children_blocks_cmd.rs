@@ -1,4 +1,4 @@
-use clap::App;
+use clap::Command;
 
 use crate::{args::{block_id::BlockIdArg, page_size::PageSizeArg, x::X}, method::Method};
 
@@ -31,8 +31,8 @@ impl ChildrenBlocks {
     }
 }
 
-pub fn children_blocks_subcommand() -> App<'static, 'static> {
-    clap::SubCommand::with_name("children_blocks")
+pub fn children_blocks_subcommand() -> Command {
+    Command::new("children_blocks")
         .about("Output Notion API URLs for children blocks")
         .arg(X::x_option())
         .arg(BlockIdArg::id_option())

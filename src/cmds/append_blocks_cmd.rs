@@ -1,3 +1,5 @@
+use clap::Command;
+
 use super::i_cmd::ICommand;
 
 use crate::{args::{block_id::BlockIdArg, file::File, x::X}, method::Method};
@@ -44,8 +46,8 @@ impl ICommand for BlocksAppend {
     }
 }
 
-pub fn append_blocks_subcommand() -> clap::App<'static, 'static> {
-    clap::SubCommand::with_name("append_blocks")
+pub fn append_blocks_subcommand() -> Command {
+    Command::new("append_blocks")
         .about("Output Notion API URLs for append blocks")
         .arg(X::x_option())
         .arg(BlockIdArg::id_option())

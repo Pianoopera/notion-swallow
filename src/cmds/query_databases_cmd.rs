@@ -1,4 +1,4 @@
-use clap::{App, SubCommand};
+use clap::Command;
 
 use crate::args::{file::File, notion_id::NotionIdArg};
 
@@ -35,8 +35,8 @@ impl QueryDatabases {
     }
 }
 
-pub fn query_databases_cmd() -> App<'static, 'static> {
-    SubCommand::with_name("query_databases")
+pub fn query_databases_cmd() -> Command {
+    Command::new("query_databases")
         .about("Output Notion API URLs for query databases")
         .arg(NotionIdArg::id_option())
         .arg(File::file_option())
