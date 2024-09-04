@@ -25,6 +25,5 @@ impl Search {
 pub fn search_subcommand() -> Command {
     Command::new("serach")
         .about("Output Notion API URLs for query databases")
-        .arg(NotionIdArg::id_option())
         .arg(File::file_option())
 }
