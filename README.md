@@ -1,6 +1,20 @@
 # notion-swallow
 cli to have the request converted to a request to NOTION
 
+## Install
+
+Download the corresponding binary
+
+https://github.com/Pianoopera/notion-swallow/releases
+
+### for mac
+
+```
+brew install Pianoopera/tap/notion-swallow
+```
+
+## Usage
+
 ```
 notion-swallow 0.3.2
 teto <https://github.com/Pianoopera>
