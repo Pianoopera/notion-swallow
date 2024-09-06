@@ -35,7 +35,7 @@ fn main() {
     }
 
     let notion_api_key = env::var("NOTION_SECRET_KEY").unwrap_or("default".to_string());
-    let notion_version = env::var("NOTION_VERSION").unwrap_or("2021-05-13".to_string());
+    let notion_version = env::var("NOTION_VERSION").unwrap_or("2022-06-28".to_string());
 
     let subcommand = subcommand::NotionSubCommand::from_args(&arg_matches);
     match subcommand {
