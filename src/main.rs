@@ -3,6 +3,8 @@ mod cmds;
 mod method;
 mod subcommand;
 
+use std::env;
+
 use clap::Command;
 use cmds::{
     append_blocks_cmd, blocks_cmd, children_blocks_cmd, databases_cmd, i_cmd::ICommand, pages_cmd,
@@ -11,7 +13,7 @@ use cmds::{
 
 fn main() {
     let mut app = Command::new("notion-swallow")
-        .version("0.3.2")
+        .version("0.3.3")
         .author("teto <https://github.com/Pianoopera>")
         .about("Output Notion API URLs")
         .subcommands(vec![
@@ -32,8 +34,8 @@ fn main() {
         return;
     }
 
-    let notion_api_key = dotenv::var("NOTION_API_KEY").unwrap_or("default".to_string());
-    let notion_version = dotenv::var("NOTION_VERSION").unwrap_or("2021-05-13".to_string());
+    let notion_api_key = env::var("NOTION_SECRET_KEY").unwrap_or("secret_123".to_string());
+    let notion_version = env::var("NOTION_VERSION").unwrap_or("2022-06-28".to_string());
 
     let subcommand = subcommand::NotionSubCommand::from_args(&arg_matches);
     match subcommand {

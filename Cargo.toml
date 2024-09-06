@@ -1,11 +1,10 @@
 [package]
 name = "notion-swallow"
-version = "0.3.2"
+version = "0.3.3"
 edition = "2021"
 
 [dependencies]
 clap = { version = "4.5.16", features = ["derive"] }
-dotenv = "0.15.0"
 
 [dev-dependencies]
 assert_cmd = "2"
