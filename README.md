@@ -69,6 +69,10 @@ example
 notion-swallow pages -i 123-123 | sh
 ```
 
+## Subcommands
+
+subcommand details
+
 ### pages
 
 ```sh
