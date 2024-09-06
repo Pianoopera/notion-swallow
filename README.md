@@ -16,7 +16,7 @@ brew install Pianoopera/tap/notion-swallow
 ## Usage
 
 ```
-notion-swallow 0.3.2
+notion-swallow 0.3.3
 teto <https://github.com/Pianoopera>
 Output Notion API URLs
 
@@ -37,4 +37,14 @@ SUBCOMMANDS:
     property_pages     Output Notion API URLs for property pages
     query_databases    Output Notion API URLs for query databases
     search             Output Notion API URLs for search
+```
+
+## CURL
+
+If you want to run curl, use the `sh` command in `|`.
+
+example
+
+```sh
+notion_swallow pages -i 123-123 | sh
 ```
