@@ -20,7 +20,9 @@ mv download/file/name notion-swallow
 
 ### for mac
 
-```
+homebrew
+
+```sh
 brew install Pianoopera/tap/notion-swallow
 ```
 
@@ -29,8 +31,8 @@ brew install Pianoopera/tap/notion-swallow
 Set the secret key in the environment variable named `NOTION_SECRET_KEY`,`NOTION_VERSION`
 
 ```sh
-export NOTION_SECRET_KEY="secret_123"
-export NOTION_VERSION="2022-06-28"
+export NOTION_SECRET_KEY=secret_123
+export NOTION_VERSION=2022-06-28
 ```
 
 ## Usage
