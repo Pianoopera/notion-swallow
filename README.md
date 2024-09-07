@@ -71,6 +71,10 @@ example
 notion-swallow pages -i 123-123 | sh
 ```
 
+## cheat sheet
+
+[document](./document/cheat_sheet.md)
+
 ## Subcommands
 
 subcommand details
