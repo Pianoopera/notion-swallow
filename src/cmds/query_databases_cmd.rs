@@ -17,7 +17,7 @@ impl QueryDatabases {
     pub fn get_file(&self) -> String {
         std::fs::read_to_string(&self.file.file_path()).unwrap()
     }
-    pub fn print_curl(&self, notion_api_key: String, notion_version: String) {
+    pub fn print(&self, notion_api_key: String, notion_version: String) {
         if !self.get_file_path().is_empty() {
             let curl = format!(
                 "curl -X POST '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
