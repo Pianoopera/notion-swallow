@@ -67,7 +67,7 @@ jobs:
       # tar.gzに圧縮
       - name: Compress
         run: |
-          tar -czf ${{ env.PROJECT_NAME }}-${{ github.ref_name }}-${{ matrix.job.target }}.tar.gz ${{ env.PROJECT_NAME }}-${{ github.ref_name }}-${{ matrix.job.target }}${{ matrix.job.extension }}
+          tar -czf ${{ env.PROJECT_NAME }}-${{ github.ref_name }}-${{ matrix.job.target }}.tar.gz ${{ env.PROJECT_NAME }}
 
       - name: Release
         uses: softprops/action-gh-release@v1
