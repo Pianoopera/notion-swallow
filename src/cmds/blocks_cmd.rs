@@ -1,13 +1,13 @@
 use clap::Command;
 
-use crate::{args::{block_id::BlockIdArg, file::File, x::X}, method::Method};
+use crate::{args::{block_id::BlockIdArg, file::FileArg, x::X}, method::Method};
 
 use super::i_cmd::ICommand;
 
 pub struct Blocks {
     pub method: Method,
     pub block_id: BlockIdArg,
-    pub file_path: String,
+    pub file: FileArg,
 }
 
 impl ICommand for Blocks {
@@ -18,7 +18,7 @@ impl ICommand for Blocks {
         format!("-X {}", &self.method.fmt())
     }
     fn get_file(&self) -> String {
-        std::fs::read_to_string(&self.file_path).unwrap()
+        std::fs::read_to_string(&self.file.file_path()).unwrap()
     }
     fn print_curl(&self, notion_api_key: String, notion_version: String) {
         if &self.method == &Method::PATCH {
@@ -62,5 +62,5 @@ pub fn blocks_subcommand() -> Command {
         .about("Output Notion API URLs for blocks")
         .arg(X::x_option())
         .arg(BlockIdArg::id_option())
-        .arg(File::file_option())
+        .arg(FileArg::file_option())
 }

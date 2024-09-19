@@ -1,9 +1,8 @@
 use clap::Command;
 
 use crate::{
-    args::{file::File, notion_id::NotionIdArg, x::X},
+    args::{file::FileArg, notion_id::NotionIdArg, x::X},
     method::Method,
-    // cmds::execute::handler
 };
 
 use super::i_cmd::ICommand;
@@ -11,7 +10,7 @@ use super::i_cmd::ICommand;
 pub struct Databases {
     pub method: Method,
     pub notion_id: NotionIdArg,
-    pub file_path: String,
+    pub file: FileArg,
 }
 
 impl ICommand for Databases {
@@ -22,7 +21,7 @@ impl ICommand for Databases {
         format!("-L -X {}", &self.method.fmt())
     }
     fn get_file(&self) -> String {
-        std::fs::read_to_string(&self.file_path).unwrap()
+        std::fs::read_to_string(&self.file.file_path()).unwrap()
     }
     fn print_curl(&self, notion_api_key: String, notion_version: String) {
         if &self.method == &Method::POST {
@@ -67,5 +66,5 @@ pub fn databases_subcommand() -> Command {
         .about("Output Notion API URLs for databases")
         .arg(NotionIdArg::id_option())
         .arg(X::x_option())
-        .arg(File::file_option())
+        .arg(FileArg::file_option())
 }

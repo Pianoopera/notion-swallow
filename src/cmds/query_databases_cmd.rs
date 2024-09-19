@@ -1,10 +1,10 @@
 use clap::Command;
 
-use crate::args::{file::File, notion_id::NotionIdArg};
+use crate::args::{file::FileArg, notion_id::NotionIdArg};
 
 pub struct QueryDatabases {
     pub notion_id: NotionIdArg,
-    pub file_path: String,
+    pub file: FileArg,
 }
 
 impl QueryDatabases {
@@ -12,10 +12,10 @@ impl QueryDatabases {
         format!("https://api.notion.com/v1/databases/{}/query", &self.notion_id.get_id())
     }
     pub fn get_file_path(&self) -> String {
-        self.file_path.clone()
+        self.file.file_path().clone()
     }
     pub fn get_file(&self) -> String {
-        std::fs::read_to_string(&self.file_path).unwrap()
+        std::fs::read_to_string(&self.file.file_path()).unwrap()
     }
     pub fn print_curl(&self, notion_api_key: String, notion_version: String) {
         if !self.get_file_path().is_empty() {
@@ -39,5 +39,5 @@ pub fn query_databases_cmd() -> Command {
     Command::new("query_databases")
         .about("Output Notion API URLs for query databases")
         .arg(NotionIdArg::id_option())
-        .arg(File::file_option())
+        .arg(FileArg::file_option())
 }

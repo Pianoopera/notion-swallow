@@ -1,14 +1,14 @@
 use clap::Command;
 
-use crate::args::file::File;
+use crate::args::file::FileArg;
 
 pub struct Search {
-    pub file_path: String,
+    pub file: FileArg,
 }
 
 impl Search {
     pub fn get_file(&self) -> String {
-        std::fs::read_to_string(&self.file_path).unwrap()
+        std::fs::read_to_string(&self.file.file_path()).unwrap()
     }
     pub fn print_curl(&self, notion_api_key: String, notion_version: String) {
         let curl = format!(
@@ -25,5 +25,5 @@ impl Search {
 pub fn search_subcommand() -> Command {
     Command::new("search")
         .about("Output Notion API URLs for query databases")
-        .arg(File::file_option())
+        .arg(FileArg::file_option())
 }

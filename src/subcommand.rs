@@ -1,4 +1,5 @@
 use crate::args::block_id::BlockIdArg;
+use crate::args::file::FileArg;
 use crate::args::notion_id::NotionIdArg;
 use crate::args::page_size::PageSizeArg;
 use crate::args::property_id::PropertyIdArg;
@@ -36,22 +37,14 @@ impl NotionSubCommand {
                         .unwrap_or("GET"),
                 ),
                 notion_id: NotionIdArg::match_arg(matches),
-                file_path: matches
-                    .get_one::<String>("file")
-                    .map(String::as_str)
-                    .unwrap_or("")
-                    .to_string(),
+                file: FileArg::match_arg(matches)
             };
 
             NotionSubCommand::Databases(databases_opt)
         } else if let Some(matches) = matches.subcommand_matches("query_databases") {
             let query_databases_opt = QueryDatabases {
                 notion_id: NotionIdArg::match_arg(matches),
-                file_path: matches
-                    .get_one::<String>("file")
-                    .map(String::as_str)
-                    .unwrap_or("")
-                    .to_string(),
+                file: FileArg::match_arg(matches)
             };
 
             NotionSubCommand::QueryDatabases(query_databases_opt)
@@ -63,11 +56,7 @@ impl NotionSubCommand {
                         .map(String::as_str)
                         .unwrap_or("GET"),
                 ),
-                file_path: matches
-                    .get_one::<String>("file")
-                    .map(String::as_str)
-                    .unwrap_or("")
-                    .to_string(),
+                file: FileArg::match_arg(matches),
                 notion_id: NotionIdArg::match_arg(matches),
             };
 
@@ -106,11 +95,7 @@ impl NotionSubCommand {
                         .unwrap_or("")
                         .to_string(),
                 ),
-                file_path: matches
-                    .get_one::<String>("file")
-                    .map(String::as_str)
-                    .unwrap_or("")
-                    .to_string(),
+                file: FileArg::match_arg(matches)
             };
 
             NotionSubCommand::Blocks(blocks_opt)
@@ -129,11 +114,7 @@ impl NotionSubCommand {
                         .unwrap_or("")
                         .to_string(),
                 ),
-                file_path: matches
-                    .get_one::<String>("file")
-                    .map(String::as_str)
-                    .unwrap_or("")
-                    .to_string(),
+                file: FileArg::match_arg(matches)
             };
 
             NotionSubCommand::BlocksAppend(append_blocks_opt)
@@ -164,11 +145,7 @@ impl NotionSubCommand {
             NotionSubCommand::ChildrenBlocks(children_blocks_opt)
         } else if let Some(matches) = matches.subcommand_matches("search") {
             let search_opt = Search {
-                file_path: matches
-                    .get_one::<String>("file")
-                    .map(String::as_str)
-                    .unwrap_or("")
-                    .to_string(),
+                file: FileArg::match_arg(matches)
             };
 
             NotionSubCommand::Search(search_opt)
