@@ -38,7 +38,7 @@ export NOTION_VERSION=2022-06-28
 ## Usage
 
 ```sh
-notion-swallow 0.3.3
+notion-swallow 0.3.5
 teto <https://github.com/Pianoopera>
 Output Notion API URLs
 

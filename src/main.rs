@@ -14,7 +14,7 @@ use subcommand::NotionSubCommand;
 
 fn main() {
     let mut app = Command::new("notion-swallow")
-        .version("0.3.3")
+        .version("0.3.5")
         .author("teto <https://github.com/Pianoopera>")
         .about("Output Notion API URLs")
         .subcommands(vec![
