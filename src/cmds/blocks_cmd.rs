@@ -1,13 +1,13 @@
 use clap::Command;
 
-use crate::{args::{block_id::BlockIdArg, file::File, x::X}, method::Method};
+use crate::{args::{block_id::BlockIdArg, file::FileArg, x::X}, method::MethodArg};
 
 use super::i_cmd::ICommand;
 
 pub struct Blocks {
-    pub method: Method,
+    pub method: MethodArg,
     pub block_id: BlockIdArg,
-    pub file_path: String,
+    pub file: FileArg,
 }
 
 impl ICommand for Blocks {
@@ -18,10 +18,10 @@ impl ICommand for Blocks {
         format!("-X {}", &self.method.fmt())
     }
     fn get_file(&self) -> String {
-        std::fs::read_to_string(&self.file_path).unwrap()
+        std::fs::read_to_string(&self.file.file_path()).unwrap()
     }
-    fn print_curl(&self, notion_api_key: String, notion_version: String) {
-        if &self.method == &Method::PATCH {
+    fn print(&self, notion_api_key: String, notion_version: String) {
+        if &self.method == &MethodArg::PATCH {
             let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_mthod(),
@@ -32,7 +32,7 @@ impl ICommand for Blocks {
             );
             println!("{}", curl);
             // handler(&curl);
-        } else if &self.method == &Method::DELETE {
+        } else if &self.method == &MethodArg::DELETE {
             let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json'",
                 &self.generate_mthod(),
@@ -41,7 +41,7 @@ impl ICommand for Blocks {
                 notion_version,
             );
             println!("{}", curl);
-        } else if &self.method == &Method::GET {
+        } else if &self.method == &MethodArg::GET {
             let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json'",
                 &self.generate_mthod(),
@@ -62,5 +62,5 @@ pub fn blocks_subcommand() -> Command {
         .about("Output Notion API URLs for blocks")
         .arg(X::x_option())
         .arg(BlockIdArg::id_option())
-        .arg(File::file_option())
+        .arg(FileArg::file_option())
 }

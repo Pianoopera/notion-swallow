@@ -1,9 +1,9 @@
 use clap::Command;
 
-use crate::{args::{block_id::BlockIdArg, page_size::PageSizeArg, x::X}, method::Method};
+use crate::{args::{block_id::BlockIdArg, page_size::PageSizeArg, x::X}, method::MethodArg};
 
 pub struct ChildrenBlocks {
-    pub method: Method,
+    pub method: MethodArg,
     pub block_id: BlockIdArg,
     pub page_size: PageSizeArg,
 }
@@ -19,7 +19,7 @@ impl ChildrenBlocks {
     pub fn generate_mthod(&self) -> String {
         format!("-X {}", &self.method.fmt())
     }
-    pub fn print_curl(&self, notion_api_key: String, notion_version: String) {
+    pub fn print(&self, notion_api_key: String, notion_version: String) {
         let curl = format!(
             "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}'",
             &self.generate_mthod(),

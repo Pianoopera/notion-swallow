@@ -2,12 +2,12 @@ use clap::Command;
 
 use super::i_cmd::ICommand;
 
-use crate::{args::{block_id::BlockIdArg, file::File, x::X}, method::Method};
+use crate::{args::{block_id::BlockIdArg, file::FileArg, x::X}, method::MethodArg};
 
 pub struct BlocksAppend {
-    pub method: Method,
+    pub method: MethodArg,
     pub block_id: BlockIdArg,
-    pub file_path: String,
+    pub file: FileArg,
 }
 
 impl ICommand for BlocksAppend {
@@ -18,10 +18,10 @@ impl ICommand for BlocksAppend {
         format!("-X {}", &self.method.fmt())
     }
     fn get_file(&self) -> String {
-        std::fs::read_to_string(&self.file_path).unwrap()
+        std::fs::read_to_string(&self.file.file_path()).unwrap()
     }
-    fn print_curl(&self, notion_api_key: String, notion_version: String) {
-        if &self.method == &Method::PATCH {
+    fn print(&self, notion_api_key: String, notion_version: String) {
+        if &self.method == &MethodArg::PATCH {
             let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_mthod(),
@@ -51,5 +51,5 @@ pub fn append_blocks_subcommand() -> Command {
         .about("Output Notion API URLs for append blocks")
         .arg(X::x_option())
         .arg(BlockIdArg::id_option())
-        .arg(File::file_option())
+        .arg(FileArg::file_option())
 }

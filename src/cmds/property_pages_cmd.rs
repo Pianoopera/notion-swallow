@@ -3,12 +3,12 @@ use clap::Command;
 use crate::{
     args::{notion_id::NotionIdArg, property_id::PropertyIdArg, x::X},
     // cmds::execute::handler,
-    method::Method
+    method::MethodArg
 };
 
 
 pub struct PropertyPages {
-    pub method: Method,
+    pub method: MethodArg,
     pub notion_id: NotionIdArg,
     pub property_id: PropertyIdArg,
 }
@@ -19,7 +19,7 @@ impl PropertyPages {
     pub fn generate_url(&self) -> String {
         format!("https://api.notion.com/v1/pages/{}/properties/{}", &self.notion_id.get_id(), &self.property_id.get_id())
     }
-    pub fn print_curl(&self, notion_api_key: String, notion_version: String) {
+    pub fn print(&self, notion_api_key: String, notion_version: String) {
         let curl = format!(
             "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}'",
             &self.generate_mthod(),

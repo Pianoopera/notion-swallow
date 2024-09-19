@@ -14,4 +14,13 @@ impl NotionIdArg {
     pub fn get_id(&self) -> String {
         self.0.to_string()
     }
+    pub fn match_arg(matches: &clap::ArgMatches) -> Self {
+        NotionIdArg(
+            matches
+                .get_one::<String>("id")
+                .map(String::as_str)
+                .unwrap_or("")
+                .to_string(),
+        )
+    }
 }

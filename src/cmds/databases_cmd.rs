@@ -1,17 +1,16 @@
 use clap::Command;
 
 use crate::{
-    args::{file::File, notion_id::NotionIdArg, x::X},
-    method::Method,
-    // cmds::execute::handler
+    args::{file::FileArg, notion_id::NotionIdArg, x::X},
+    method::MethodArg,
 };
 
 use super::i_cmd::ICommand;
 
 pub struct Databases {
-    pub method: Method,
+    pub method: MethodArg,
     pub notion_id: NotionIdArg,
-    pub file_path: String,
+    pub file: FileArg,
 }
 
 impl ICommand for Databases {
@@ -22,10 +21,10 @@ impl ICommand for Databases {
         format!("-L -X {}", &self.method.fmt())
     }
     fn get_file(&self) -> String {
-        std::fs::read_to_string(&self.file_path).unwrap()
+        std::fs::read_to_string(&self.file.file_path()).unwrap()
     }
-    fn print_curl(&self, notion_api_key: String, notion_version: String) {
-        if &self.method == &Method::POST {
+    fn print(&self, notion_api_key: String, notion_version: String) {
+        if &self.method == &MethodArg::POST {
             let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_mthod(),
@@ -37,7 +36,7 @@ impl ICommand for Databases {
             println!("{}", curl);
             // handler(&curl);
         // patch判定
-        } else if &self.method == &Method::PATCH {
+        } else if &self.method == &MethodArg::PATCH {
             let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_mthod(),
@@ -67,5 +66,5 @@ pub fn databases_subcommand() -> Command {
         .about("Output Notion API URLs for databases")
         .arg(NotionIdArg::id_option())
         .arg(X::x_option())
-        .arg(File::file_option())
+        .arg(FileArg::file_option())
 }
