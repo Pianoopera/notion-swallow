@@ -2,14 +2,14 @@ use clap::Command;
 
 use crate::{
     args::{file::FileArg, notion_id::NotionIdArg, x::X},
-    method::Method,
+    method::MethodArg,
     // cmds::execute::handler
 };
 
 use super::i_cmd::ICommand;
 
 pub struct Pages {
-    pub method: Method,
+    pub method: MethodArg,
     pub file: FileArg,
     pub notion_id: NotionIdArg
 }
@@ -25,7 +25,7 @@ impl ICommand for Pages {
         std::fs::read_to_string(&self.file.file_path()).unwrap()
     }
     fn print_curl(&self, notion_api_key: String, notion_version: String) {
-        if &self.method == &Method::PATCH {
+        if &self.method == &MethodArg::PATCH {
             let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_mthod(),
@@ -36,7 +36,7 @@ impl ICommand for Pages {
             );
             println!("{}", curl);
             // handler(&curl);
-        } else if &self.method == &Method::GET {
+        } else if &self.method == &MethodArg::GET {
             let curl =  format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}'",
                 &self.generate_mthod(),
@@ -46,7 +46,7 @@ impl ICommand for Pages {
             );
             println!("{}", curl);
             // handler(&curl);
-        } else if &self.method == &Method::POST {
+        } else if &self.method == &MethodArg::POST {
             let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_mthod(),

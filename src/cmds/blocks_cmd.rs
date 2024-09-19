@@ -1,11 +1,11 @@
 use clap::Command;
 
-use crate::{args::{block_id::BlockIdArg, file::FileArg, x::X}, method::Method};
+use crate::{args::{block_id::BlockIdArg, file::FileArg, x::X}, method::MethodArg};
 
 use super::i_cmd::ICommand;
 
 pub struct Blocks {
-    pub method: Method,
+    pub method: MethodArg,
     pub block_id: BlockIdArg,
     pub file: FileArg,
 }
@@ -21,7 +21,7 @@ impl ICommand for Blocks {
         std::fs::read_to_string(&self.file.file_path()).unwrap()
     }
     fn print_curl(&self, notion_api_key: String, notion_version: String) {
-        if &self.method == &Method::PATCH {
+        if &self.method == &MethodArg::PATCH {
             let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_mthod(),
@@ -32,7 +32,7 @@ impl ICommand for Blocks {
             );
             println!("{}", curl);
             // handler(&curl);
-        } else if &self.method == &Method::DELETE {
+        } else if &self.method == &MethodArg::DELETE {
             let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json'",
                 &self.generate_mthod(),
@@ -41,7 +41,7 @@ impl ICommand for Blocks {
                 notion_version,
             );
             println!("{}", curl);
-        } else if &self.method == &Method::GET {
+        } else if &self.method == &MethodArg::GET {
             let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json'",
                 &self.generate_mthod(),

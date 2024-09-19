@@ -1,4 +1,4 @@
-use clap::Arg;
+use clap::{Arg, ArgMatches};
 
 pub struct PageSizeArg(pub String);
 
@@ -13,5 +13,14 @@ impl PageSizeArg {
     }
     pub fn get_page_size(&self) -> String {
         self.0.to_string()
+    }
+    pub fn match_arg(matches: &ArgMatches) -> Self {
+        PageSizeArg(
+            matches
+                .get_one::<String>("page_size")
+                .map(String::as_str)
+                .unwrap_or("100")
+                .to_string(),
+        )
     }
 }

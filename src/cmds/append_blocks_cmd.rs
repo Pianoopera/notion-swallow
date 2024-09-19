@@ -2,10 +2,10 @@ use clap::Command;
 
 use super::i_cmd::ICommand;
 
-use crate::{args::{block_id::BlockIdArg, file::FileArg, x::X}, method::Method};
+use crate::{args::{block_id::BlockIdArg, file::FileArg, x::X}, method::MethodArg};
 
 pub struct BlocksAppend {
-    pub method: Method,
+    pub method: MethodArg,
     pub block_id: BlockIdArg,
     pub file: FileArg,
 }
@@ -21,7 +21,7 @@ impl ICommand for BlocksAppend {
         std::fs::read_to_string(&self.file.file_path()).unwrap()
     }
     fn print_curl(&self, notion_api_key: String, notion_version: String) {
-        if &self.method == &Method::PATCH {
+        if &self.method == &MethodArg::PATCH {
             let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_mthod(),

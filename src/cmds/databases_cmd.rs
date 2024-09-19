@@ -2,13 +2,13 @@ use clap::Command;
 
 use crate::{
     args::{file::FileArg, notion_id::NotionIdArg, x::X},
-    method::Method,
+    method::MethodArg,
 };
 
 use super::i_cmd::ICommand;
 
 pub struct Databases {
-    pub method: Method,
+    pub method: MethodArg,
     pub notion_id: NotionIdArg,
     pub file: FileArg,
 }
@@ -24,7 +24,7 @@ impl ICommand for Databases {
         std::fs::read_to_string(&self.file.file_path()).unwrap()
     }
     fn print_curl(&self, notion_api_key: String, notion_version: String) {
-        if &self.method == &Method::POST {
+        if &self.method == &MethodArg::POST {
             let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_mthod(),
@@ -36,7 +36,7 @@ impl ICommand for Databases {
             println!("{}", curl);
             // handler(&curl);
         // patch判定
-        } else if &self.method == &Method::PATCH {
+        } else if &self.method == &MethodArg::PATCH {
             let curl = format!(
                 "curl {} '{}' \\\n -H 'Authorization: Bearer {}' \\\n -H 'Notion-Version: {}' \\\n -H 'Content-Type: application/json' \\\n -d '{}'",
                 &self.generate_mthod(),

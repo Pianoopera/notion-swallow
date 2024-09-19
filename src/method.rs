@@ -1,27 +1,30 @@
 #[derive(Debug, PartialEq)]
-pub enum Method {
+pub enum MethodArg {
     GET,
     POST,
     PATCH,
     DELETE,
 }
 
-impl Method {
+impl MethodArg {
     pub fn fmt(&self) -> String {
         match self {
-            Method::GET => "GET".to_string(),
-            Method::POST => "POST".to_string(),
-            Method::PATCH => "PATCH".to_string(),
-            Method::DELETE => "DELETE".to_string(),
+            MethodArg::GET => "GET".to_string(),
+            MethodArg::POST => "POST".to_string(),
+            MethodArg::PATCH => "PATCH".to_string(),
+            MethodArg::DELETE => "DELETE".to_string(),
         }
     }
-    pub fn match_method(method: &str) -> Method {
+    pub fn match_method(matches: &clap::ArgMatches) -> MethodArg {
+        let method = matches.get_one::<String>("x")
+            .map(String::as_str)
+            .unwrap_or("GET");
         match method {
-            "GET" => Method::GET,
-            "POST" => Method::POST,
-            "PATCH" => Method::PATCH,
-            "DELETE" => Method::DELETE,
-            _ => Method::GET,
+            "GET" => MethodArg::GET,
+            "POST" => MethodArg::POST,
+            "PATCH" => MethodArg::PATCH,
+            "DELETE" => MethodArg::DELETE,
+            _ => MethodArg::GET,
         }
     }
 }

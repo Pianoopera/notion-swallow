@@ -1,9 +1,9 @@
 use clap::Command;
 
-use crate::{args::{block_id::BlockIdArg, page_size::PageSizeArg, x::X}, method::Method};
+use crate::{args::{block_id::BlockIdArg, page_size::PageSizeArg, x::X}, method::MethodArg};
 
 pub struct ChildrenBlocks {
-    pub method: Method,
+    pub method: MethodArg,
     pub block_id: BlockIdArg,
     pub page_size: PageSizeArg,
 }

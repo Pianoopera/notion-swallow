@@ -1,4 +1,4 @@
-use clap::Arg;
+use clap::{Arg, ArgMatches};
 
 pub struct PropertyIdArg(pub String);
 
@@ -13,5 +13,14 @@ impl PropertyIdArg {
     }
     pub fn get_id(&self) -> String {
         self.0.to_string()
+    }
+    pub fn match_arg(matches: &ArgMatches) -> Self {
+        PropertyIdArg(
+            matches
+                .get_one::<String>("property_id")
+                .map(String::as_str)
+                .unwrap_or("")
+                .to_string(),
+        )
     }
 }

@@ -3,12 +3,12 @@ use clap::Command;
 use crate::{
     args::{notion_id::NotionIdArg, property_id::PropertyIdArg, x::X},
     // cmds::execute::handler,
-    method::Method
+    method::MethodArg
 };
 
 
 pub struct PropertyPages {
-    pub method: Method,
+    pub method: MethodArg,
     pub notion_id: NotionIdArg,
     pub property_id: PropertyIdArg,
 }
