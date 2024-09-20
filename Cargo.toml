@@ -4,8 +4,8 @@ version = "0.3.6"
 edition = "2021"
 
 [dependencies]
-clap = { version = "4.5.16", features = ["derive"] }
+clap = { version = "4.5.17", features = ["derive"] }
 
 [dev-dependencies]
 assert_cmd = "2"
-predicates = "2"
+predicates = "3.1.2"
