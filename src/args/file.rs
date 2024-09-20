@@ -1,5 +1,6 @@
 use clap::{Arg, ArgMatches};
 
+#[derive(Clone)]
 pub struct FileArg(pub String);
 
 impl FileArg {
